@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux kernel," />
 
 
 
@@ -62,22 +62,22 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
 把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。
 页描述符内核必须对页框进行管理，以区分页框是否空闲，同时">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Memory Manage">
-<meta property="og:url" content="http://yoursite.com/2016/03/10/Memory-Manage/index.html">
+<meta property="og:title" content="Memory Management">
+<meta property="og:url" content="http://yoursite.com/2016/03/10/Memory-Management/index.html">
 <meta property="og:site_name" content="LostJeffle">
 <meta property="og:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
 RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
 把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。
 页描述符内核必须对页框进行管理，以区分页框是否空闲，同时">
-<meta property="og:image" content="http://yoursite.com/media/14572494637975/Distribution%20of%20High%20Memory.png">
-<meta property="og:updated_time" content="2016-03-10T11:12:38.000Z">
+<meta property="og:image" content="http://yoursite.com/images/Distribution%20of%20High%20Memory.png">
+<meta property="og:updated_time" content="2016-03-10T14:33:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Memory Manage">
+<meta name="twitter:title" content="Memory Management">
 <meta name="twitter:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
 RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
 把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。
 页描述符内核必须对页框进行管理，以区分页框是否空闲，同时">
-<meta name="twitter:image" content="http://yoursite.com/media/14572494637975/Distribution%20of%20High%20Memory.png">
+<meta name="twitter:image" content="http://yoursite.com/images/Distribution%20of%20High%20Memory.png">
 
 
 
@@ -95,7 +95,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
   };
 </script>
 
-  <title> Memory Manage | LostJeffle </title>
+  <title> Memory Management | LostJeffle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -158,6 +158,16 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -215,7 +225,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
             
             
               
-                Memory Manage
+                Memory Management
               
             
           </h1>
@@ -290,7 +300,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
 </tbody>
 </table>
 <p>ZONE_HIGHMEM即为高端内存，内核将896MB之后的物理内存映射至高端内存的128M线性地址空间。</p>
-<h3 id="高端内存映射"><a href="#高端内存映射" class="headerlink" title="高端内存映射"></a>高端内存映射</h3><p><img src="media/14572494637975/Distribution%20of%20High%20Memory.png" alt="Distribution of High Memory"></p>
+<h3 id="高端内存映射"><a href="#高端内存映射" class="headerlink" title="高端内存映射"></a>高端内存映射</h3><p><img src="/images/Distribution%20of%20High%20Memory.png" alt="Distribution of High Memory"></p>
 <p>调用alloc_pages()可以获得高端内存的页描述符，但高端内存的页框并不具有线性地址，必须将高端内存映射至内核地址空间。</p>
 <ul>
 <li>永久内核映射</li>
@@ -314,6 +324,12 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux-kernel/" rel="tag">#linux kernel</a>
+          
+        </div>
       
 
       
@@ -386,7 +402,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
+               src="/images/avatar.jpg"
                alt="Jeffle" />
           <p class="site-author-name" itemprop="name">Jeffle</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -401,6 +417,13 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
           
           
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
