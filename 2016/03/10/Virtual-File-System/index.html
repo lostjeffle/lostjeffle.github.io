@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="虚拟文件系统 VFS虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。
+Unix文件系统文件文件是一个有序的字节串。
+目录目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Virtual File System">
+<meta property="og:url" content="http://yoursite.com/2016/03/10/Virtual-File-System/index.html">
+<meta property="og:site_name" content="LostJeffle">
+<meta property="og:description" content="虚拟文件系统 VFS虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。
+Unix文件系统文件文件是一个有序的字节串。
+目录目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。">
+<meta property="og:updated_time" content="2016-03-10T11:27:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Virtual File System">
+<meta name="twitter:description" content="虚拟文件系统 VFS虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。
+Unix文件系统文件文件是一个有序的字节串。
+目录目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Virtual File System | LostJeffle </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LostJeffle</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Virtual File System
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-10T18:44:37+08:00" content="2016-03-10">
+              2016-03-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="虚拟文件系统-VFS"><a href="#虚拟文件系统-VFS" class="headerlink" title="虚拟文件系统 VFS"></a>虚拟文件系统 VFS</h1><p>虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。</p>
+<h2 id="Unix文件系统"><a href="#Unix文件系统" class="headerlink" title="Unix文件系统"></a>Unix文件系统</h2><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件是一个有序的字节串。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。</p>
+<a id="more"></a>
+<h3 id="索引节点"><a href="#索引节点" class="headerlink" title="索引节点"></a>索引节点</h3><p>Unix系统将文件的相关信息（如访问控制权限、大小、拥有者、创建时间等），即文件的元数据，存储在一个单独的数据结构中，称为索引节点inode（index node）。</p>
+<h3 id="超级块"><a href="#超级块" class="headerlink" title="超级块"></a>超级块</h3><p>文件系统的控制信息存储在超级块中，超级块是一种包含单独文件信息和文件系统信息的数据结构。</p>
+<h2 id="VFS对象"><a href="#VFS对象" class="headerlink" title="VFS对象"></a>VFS对象</h2><p>VFS使用一族数据结构来代表通用文件对象，在C语言中用结构体实现。</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超级块对象</td>
+<td>代表一个安装的文件系统</td>
+</tr>
+<tr>
+<td>索引节点对象</td>
+<td>代表一个文件</td>
+</tr>
+<tr>
+<td>目录项对象</td>
+<td>代表一个目录项</td>
+</tr>
+<tr>
+<td>文件对象</td>
+<td>代表一个由进程打开的文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="索引节点对象"><a href="#索引节点对象" class="headerlink" title="索引节点对象"></a>索引节点对象</h3><p>索引节点inode代表文件系统中的一个文件，当文件被访问时，内核在内存中创建该索引节点；索引节点包含了文件的相关信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">include &lt;linux/fs.h&gt;</span><br><span class="line"><span class="keyword">struct</span> inode &#123;</span><br><span class="line">	<span class="keyword">dev_t</span>                  i_rdev;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> list_head       i_devices;  <span class="comment">/* 设备链表 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">union</span> &#123;</span><br><span class="line">		<span class="keyword">struct</span> pipe_inode_info    *i_pipe;  <span class="comment">/* 管道 */</span></span><br><span class="line">		<span class="keyword">struct</span> block_device       *i_bdev;  <span class="comment">/* 块设备 */</span></span><br><span class="line">		<span class="keyword">struct</span> cdev               *i_cdev;  <span class="comment">/* 字符设备 */</span></span><br><span class="line">		<span class="keyword">char</span>                      *i_link;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> file_operations *i_fop;  <span class="comment">/* 文件操作指针 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span>                   *i_private;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="文件对象"><a href="#文件对象" class="headerlink" title="文件对象"></a>文件对象</h3><p>文件file代表进程中一个打开的文件，是一个文件描述符，由内核在open()时创建，文件的所有实例关闭后由close()释放。一个文件对应一个唯一的索引节点对象inode，但可以对应多个文件对象file。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> file &#123;</span><br><span class="line">	<span class="keyword">mode_t</span>         f_mode;     <span class="comment">/* 文件模式   FMODE_READ文件可读；FMODE_WRITE文件可写 */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span>   f_flags;    <span class="comment">/* 文件标志   O_NONBLOCK, O_RDONLY, O_SYNC */</span></span><br><span class="line">	<span class="keyword">loff_t</span>         f_pos;      dataflowdataflow<span class="comment">/* 当前读写位置 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> dentry          f*_dentry;  <span class="comment">/* 目录项 */</span></span><br><span class="line">	<span class="keyword">struct</span> file_operations *f_op;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span>                   *private_data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/10/Memory-Manage/" rel="prev" title="Memory Manage">
+                Memory Manage <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Jeffle" />
+          <p class="site-author-name" itemprop="name">Jeffle</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟文件系统-VFS"><span class="nav-number">1.</span> <span class="nav-text">虚拟文件系统 VFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unix文件系统"><span class="nav-number">1.1.</span> <span class="nav-text">Unix文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.1.2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引节点"><span class="nav-number">1.1.3.</span> <span class="nav-text">索引节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超级块"><span class="nav-number">1.1.4.</span> <span class="nav-text">超级块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VFS对象"><span class="nav-number">1.2.</span> <span class="nav-text">VFS对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#索引节点对象"><span class="nav-number">1.2.1.</span> <span class="nav-text">索引节点对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件对象"><span class="nav-number">1.2.2.</span> <span class="nav-text">文件对象</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffle</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
