@@ -57,27 +57,18 @@
 
 
 
-<meta name="description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
-RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
-把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。
-页描述符内核必须对页框进行管理，以区分页框是否空闲，同时">
+<meta name="description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Memory Management">
+<meta property="og:title" content="内存管理">
 <meta property="og:url" content="http://yoursite.com/2016/03/10/Memory-Management/index.html">
 <meta property="og:site_name" content="LostJeffle">
-<meta property="og:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
-RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
-把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。
-页描述符内核必须对页框进行管理，以区分页框是否空闲，同时">
-<meta property="og:image" content="http://yoursite.com/images/Distribution%20of%20High%20Memory.png">
-<meta property="og:updated_time" content="2016-03-10T14:33:17.000Z">
+<meta property="og:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
+<meta property="og:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png">
+<meta property="og:updated_time" content="2016-03-11T03:10:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Memory Management">
-<meta name="twitter:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
-RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
-把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。
-页描述符内核必须对页框进行管理，以区分页框是否空闲，同时">
-<meta name="twitter:image" content="http://yoursite.com/images/Distribution%20of%20High%20Memory.png">
+<meta name="twitter:title" content="内存管理">
+<meta name="twitter:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
+<meta name="twitter:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png">
 
 
 
@@ -95,7 +86,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
   };
 </script>
 
-  <title> Memory Management | LostJeffle </title>
+  <title> 内存管理 | LostJeffle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +216,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
             
             
               
-                Memory Management
+                内存管理
               
             
           </h1>
@@ -264,11 +255,9 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
       
 
       
-        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h2><h3 id="页"><a href="#页" class="headerlink" title="页"></a>页</h3><p>线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。</p>
-<p>RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。</p>
-<p>把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。</p>
-<h3 id="页描述符"><a href="#页描述符" class="headerlink" title="页描述符"></a>页描述符</h3><p>内核必须对页框进行管理，以区分页框是否空闲，同时区分哪些非空闲的页框中哪些页框包含的是属于进程的页，哪些页框包含的是内核代码或内核数据。内核使用结构page记录页框的状态信息，该数据结构也称为页描述符。</p>
+        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h2><h3 id="页"><a href="#页" class="headerlink" title="页"></a>页</h3><p>线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。<br>RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。<br>把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。</p>
 <a id="more"></a>
+<h3 id="页描述符"><a href="#页描述符" class="headerlink" title="页描述符"></a>页描述符</h3><p>内核必须对页框进行管理，以区分页框是否空闲，同时区分哪些非空闲的页框中哪些页框包含的是属于进程的页，哪些页框包含的是内核代码或内核数据。内核使用结构page记录页框的状态信息，该数据结构也称为页描述符。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/mm.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> page &#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>          flags;  <span class="comment">/* 页框的状态 */</span></span><br><span class="line">	<span class="keyword">atomic_t</span>               count;  <span class="comment">/* 页框的引用计数 */</span></span><br><span class="line">	<span class="keyword">struct</span> address_space   *mapping;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>          index;</span><br><span class="line">	<span class="keyword">void</span>                   *<span class="keyword">virtual</span>;  <span class="comment">/* 页框的虚拟地址 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h3><p>32位系统中，进程共拥有0x00000000～0xffffffff共4G的线性地址空间。</p>
 <ul>
@@ -300,7 +289,7 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
 </tbody>
 </table>
 <p>ZONE_HIGHMEM即为高端内存，内核将896MB之后的物理内存映射至高端内存的128M线性地址空间。</p>
-<h3 id="高端内存映射"><a href="#高端内存映射" class="headerlink" title="高端内存映射"></a>高端内存映射</h3><p><img src="/images/Distribution%20of%20High%20Memory.png" alt="Distribution of High Memory"></p>
+<h3 id="高端内存映射"><a href="#高端内存映射" class="headerlink" title="高端内存映射"></a>高端内存映射</h3><p><img src="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png" alt="Distribution of High Memory"></p>
 <p>调用alloc_pages()可以获得高端内存的页描述符，但高端内存的页框并不具有线性地址，必须将高端内存映射至内核地址空间。</p>
 <ul>
 <li>永久内核映射</li>
@@ -336,8 +325,8 @@ RAM分成固定长度的页框（page frame），又称物理页，是主存的�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/10/Virtual-File-System/" rel="next" title="Virtual File System">
-                <i class="fa fa-chevron-left"></i> Virtual File System
+              <a href="/2016/03/10/Virtual-File-System/" rel="next" title="虚拟文件系统">
+                <i class="fa fa-chevron-left"></i> 虚拟文件系统
               </a>
             
           </div>
