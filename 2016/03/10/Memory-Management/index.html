@@ -57,17 +57,23 @@
 
 
 
-<meta name="description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
+<meta name="description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
+RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
+把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内存管理">
 <meta property="og:url" content="http://yoursite.com/2016/03/10/Memory-Management/index.html">
 <meta property="og:site_name" content="LostJeffle">
-<meta property="og:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
+<meta property="og:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
+RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
+把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
 <meta property="og:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png">
-<meta property="og:updated_time" content="2016-03-11T03:10:34.000Z">
+<meta property="og:updated_time" content="2016-03-11T09:16:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存管理">
-<meta name="twitter:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
+<meta name="twitter:description" content="内存管理内存寻址页线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。
+RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。
+把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。">
 <meta name="twitter:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png">
 
 
@@ -255,16 +261,18 @@
       
 
       
-        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h2><h3 id="页"><a href="#页" class="headerlink" title="页"></a>页</h3><p>线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。<br>RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。<br>把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。</p>
+        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h2><h3 id="页"><a href="#页" class="headerlink" title="页"></a>页</h3><p>线性地址（虚拟地址）被分成以固定长度为单位的组，称为页（page）；页内部连续的线性地址被映射到连续的物理地址；页既指一组线性地址，又指包含在这组地址中的数据。</p>
+<p>RAM分成固定长度的页框（page frame），又称物理页，是主存的一部分。</p>
+<p>把线性地址映射到物理地址的数据结构称为页表（page table），存放在主存中。</p>
 <a id="more"></a>
-<h3 id="页描述符"><a href="#页描述符" class="headerlink" title="页描述符"></a>页描述符</h3><p>内核必须对页框进行管理，以区分页框是否空闲，同时区分哪些非空闲的页框中哪些页框包含的是属于进程的页，哪些页框包含的是内核代码或内核数据。内核使用结构page记录页框的状态信息，该数据结构也称为页描述符。</p>
+<h3 id="页描述符"><a href="#页描述符" class="headerlink" title="页描述符"></a>页描述符</h3><p>内核必须对页框进行管理，以区分页框是否空闲，同时区分那些非空闲的页框中哪些页框包含的是属于进程的页，哪些页框包含的是内核代码或内核数据。内核使用结构page记录页框的状态信息，该数据结构也称为页描述符。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/mm.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> page &#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>          flags;  <span class="comment">/* 页框的状态 */</span></span><br><span class="line">	<span class="keyword">atomic_t</span>               count;  <span class="comment">/* 页框的引用计数 */</span></span><br><span class="line">	<span class="keyword">struct</span> address_space   *mapping;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>          index;</span><br><span class="line">	<span class="keyword">void</span>                   *<span class="keyword">virtual</span>;  <span class="comment">/* 页框的虚拟地址 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h3><p>32位系统中，进程共拥有0x00000000～0xffffffff共4G的线性地址空间。</p>
+<h3 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h3><p>32位系统中，进程共拥有 0x00000000～0xffffffff 共 4G 的线性地址空间。</p>
 <ul>
-<li>0x00000000~0xbfffffff共3G的进程地址空间，进程运行于用户态／内核态时可以寻址；</li>
-<li>0xc0000000~0xffffffff共1G的内核地址空间，进程运行于内核态时才可寻址。</li>
+<li>0x00000000 ~ 0xbfffffff 共 3G 的进程地址空间，进程运行于用户态／内核态时可以寻址；</li>
+<li>0xc0000000 ~ 0xffffffff 共 1G 的内核地址空间，进程运行于内核态时才可寻址。</li>
 </ul>
-<h2 id="内核地址空间"><a href="#内核地址空间" class="headerlink" title="内核地址空间"></a>内核地址空间</h2><h3 id="内存管理区"><a href="#内存管理区" class="headerlink" title="内存管理区"></a>内存管理区</h3><p>内核地址空间从0xc0000000开始的线性地址线性地映射到0x0开始的物理内存地址。如果直接建立线性映射，内核只能访问前1G的物理内存，因而必须建立某种机制，使得更多的物理内存映射到内核地址空间。</p>
+<h2 id="内核地址空间"><a href="#内核地址空间" class="headerlink" title="内核地址空间"></a>内核地址空间</h2><h3 id="内存管理区"><a href="#内存管理区" class="headerlink" title="内存管理区"></a>内存管理区</h3><p>内核地址空间从 0xc0000000 开始的线性地址线性地映射到 0x0 开始的物理内存地址。如果直接建立线性映射，内核只能访问前 1G 的物理内存，因而必须建立某种机制，使得更多的物理内存映射到内核地址空间。</p>
 <p>x86结构将内核地址空间划分为三个内核管理区：</p>
 <table>
 <thead>
@@ -289,8 +297,97 @@
 </tbody>
 </table>
 <p>ZONE_HIGHMEM即为高端内存，内核将896MB之后的物理内存映射至高端内存的128M线性地址空间。</p>
-<h3 id="高端内存映射"><a href="#高端内存映射" class="headerlink" title="高端内存映射"></a>高端内存映射</h3><p><img src="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png" alt="Distribution of High Memory"></p>
-<p>调用alloc_pages()可以获得高端内存的页描述符，但高端内存的页框并不具有线性地址，必须将高端内存映射至内核地址空间。</p>
+<p><img src="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-11-Distribution of High Memory.png" alt="Distribution of High Memory"></p>
+<p>上图为内核地址的空间划分，PAGE_OFFSET 即为 0xc0000000，high_memory 之后的为高端内存。</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>区域</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前896MB</td>
+<td>Physical Memory Mapping</td>
+<td>物理内存直接映射</td>
+</tr>
+<tr>
+<td>VMALLOC_START ~ VMALLOC_END</td>
+<td>vmalloc area</td>
+<td>非连续内存分配</td>
+</tr>
+<tr>
+<td>PKMAP_BASE ~ FIXADDR START</td>
+<td>Persistent Kernel Mappings</td>
+<td>永久内核映射</td>
+</tr>
+<tr>
+<td>FIXADDR START ~ 4G</td>
+<td>Fix-mapped linear addresses</td>
+<td>固定映射的线性地址，临时内核映射</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内存分配接口"><a href="#内存分配接口" class="headerlink" title="内存分配接口"></a>内存分配接口</h3><h4 id="分配以页为单位的内存"><a href="#分配以页为单位的内存" class="headerlink" title="分配以页为单位的内存"></a>分配以页为单位的内存</h4><p>调用alloc_pages()、__get_free_pages()以页为单位分配连续的物理页。</p>
+<h6 id="分配内存页，返回页描述符"><a href="#分配内存页，返回页描述符" class="headerlink" title="分配内存页，返回页描述符"></a>分配内存页，返回页描述符</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/gfp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">struct</span> page *<span class="title">alloc_pages</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask, <span class="keyword">unsigned</span> <span class="keyword">int</span> order)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">struct</span> page *<span class="title">alloc_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">page_address</span><span class="params">(<span class="keyword">struct</span> page *page)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> __free_pages(<span class="keyword">struct</span> page *page, <span class="keyword">unsigned</span> <span class="keyword">int</span> order);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line"> 分配 2^order 个连续的物理页，gfp_mask为分配器标志</span><br><span class="line"> 分配成功返回第一个页的页指针, 失败返回NULL</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">struct</span> page *<span class="title">alloc_pages</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask, <span class="keyword">unsigned</span> <span class="keyword">int</span> order)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> 分配一个物理页，gfp_mask为分配器标志</span><br><span class="line"> 分配成功返回页的页指针, 失败返回NULL</span><br><span class="line">*/</span></span><br><span class="line"><span class="function"><span class="keyword">struct</span> page *<span class="title">alloc_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 返回指定页的虚拟地址 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">page_address</span><span class="params">(<span class="keyword">struct</span> page *page)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 释放分配的页 */</span></span><br><span class="line"><span class="keyword">void</span> __free_pages(<span class="keyword">struct</span> page *page, <span class="keyword">unsigned</span> <span class="keyword">int</span> order);</span><br></pre></td></tr></table></figure>
+<h6 id="分配内存页，返回页的虚拟地址"><a href="#分配内存页，返回页的虚拟地址" class="headerlink" title="分配内存页，返回页的虚拟地址"></a>分配内存页，返回页的虚拟地址</h6><p>调用kmalloc()以字节为单位分配连续的物理内存</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> __get_free_pages(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask, <span class="keyword">unsigned</span> <span class="keyword">int</span> order);</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> __get_free_page(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask);</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> __get_zeroed_page(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_pages</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> addr, <span class="keyword">unsigned</span> <span class="keyword">int</span> order)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> addr)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line"> 分配 2^order 个连续的物理页，gfp_mask为分配器标志</span><br><span class="line"> 分配成功返回第一个页的虚拟地址, 失败返回NULL</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> __get_free_pages(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask, <span class="keyword">unsigned</span> <span class="keyword">int</span> order);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line"> 分配 2^order 个连续的物理页，gfp_mask为分配器标志</span><br><span class="line"> 分配成功返回第一个页的虚拟地址, 失败返回NULL</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> __get_free_page(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> 分配一个物理页，gfp_mask为分配器标志</span><br><span class="line"> 分配成功返回页的虚拟地址, 失败返回NULL</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> __get_zeroed_page(<span class="keyword">unsigned</span> <span class="keyword">int</span> gfp_mask);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 释放分配的页 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_pages</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> addr, <span class="keyword">unsigned</span> <span class="keyword">int</span> order)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_page</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> addr)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="分配以字节为单位的内存"><a href="#分配以字节为单位的内存" class="headerlink" title="分配以字节为单位的内存"></a>分配以字节为单位的内存</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/slab.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">kmalloc</span><span class="params">(size_t size, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kfree</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> 分配size大小的连续内存，flags</span><br><span class="line"> 分配成功返回内存的起始虚拟地址，失败返回NULL</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">kmalloc</span><span class="params">(size_t size, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 释放分配的内存 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kfree</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="gfp-mask标志"><a href="#gfp-mask标志" class="headerlink" title="gfp_mask标志"></a>gfp_mask标志</h4><p>标志分为三类：行为修饰符、区修饰符、类型标志<br>行为修饰符表示内核应当如何分配所需的内存，区修饰符表示从哪个内存管理区分配内存，类型标志组合了行为修饰符和区修饰符。</p>
+<p>区修饰符表示从哪个内存管理区分配内存，默认为ZONE_NORMAL</p>
+<table>
+<thead>
+<tr>
+<th>区修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>__GFP_DMA</td>
+<td>从ZONE_DMA分配</td>
+</tr>
+<tr>
+<td>__GFP_HIGHMEM</td>
+<td>从ZONE_HIGHMEM或ZONE_NORMAL分配</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GFP_ATOMIC</td>
+<td>原子地分配内存，不会睡眠，用于中断处理程序、下半部、持自旋锁的进程上下文</td>
+</tr>
+<tr>
+<td>GFP_KERNEL</td>
+<td>常规分配方式，可能睡眠，用于睡眠安全的进程上下文中</td>
+</tr>
+<tr>
+<td>GFP_DMA</td>
+<td>从ZONE_DMA区分配内存，用于获取DMA缓冲区的设备驱动程序</td>
+</tr>
+</tbody>
+</table>
+<h3 id="高端内存映射"><a href="#高端内存映射" class="headerlink" title="高端内存映射"></a>高端内存映射</h3><p>调用alloc_pages()可以获得高端内存的页描述符，但高端内存的页框并不具有线性地址，必须将高端内存映射至内核地址空间。</p>
 <ul>
 <li>永久内核映射</li>
 <li>临时内核映射</li>
@@ -299,10 +396,29 @@
 <h4 id="永久内核映射"><a href="#永久内核映射" class="headerlink" title="永久内核映射"></a>永久内核映射</h4><p>永久内核映射允许内核建立高端内存页框到内核地址空间的长期映射；允许永久内核映射的数量是有限的。<br>这种映射可以休眠，只能用于进程上下文中。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">kmap</span><span class="params">(<span class="keyword">struct</span> page *page)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kunmap</span><span class="params">(<span class="keyword">struct</span> page *page)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>调用kmap()建立永久内核映射，并返回该高端内存页框的线性地址；<br>调用kunmap()解除映射。</p>
-<h4 id="临时内核映射"><a href="#临时内核映射" class="headerlink" title="临时内核映射"></a>临时内核映射</h4><p>临时内核映射允许内核通过保留的页表项原子地将高端内存页框映射至内核地址空间，<br>这种映射是非阻赛的，因而可以用于中断处理程序或可延迟函数的内部。</p>
+<h4 id="临时内核映射"><a href="#临时内核映射" class="headerlink" title="临时内核映射"></a>临时内核映射</h4><p>固定映射的线性地址基本上是一种类似于0xffffc000这样的常量线性地址，其对应的物理地址不必等于线性地址减去0xc0000000，而是可以以任意方式建立。因此，每个固定映射的线性地址都映射一个物理内存的页框，并且可以映射任何物理地址。</p>
+<p>临时内核映射正是借助这些“窗口”，允许内核通过保留的页表项原子地将高端内存页框映射至内核地址空间，<br>这种映射是非阻塞的，因而可以用于中断处理程序或可延迟函数的内部。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">kmap_atomic</span><span class="params">(<span class="keyword">struct</span> page *page, <span class="keyword">enum</span> km_type type)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kunmap_atomic</span><span class="params">(<span class="keyword">struct</span> page *page, <span class="keyword">enum</span> km_type type)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>调用kmap_atomic()建立临时内核映射，并返回该高端内存页框的线性地址；<br>调用kunmap_atomic()解除映射；<br>参数type描述了临时内核映射的目的。</p>
-<h4 id="非连续内存分配"><a href="#非连续内存分配" class="headerlink" title="非连续内存分配"></a>非连续内存分配</h4>
+<p>####非连续内存分配<br>非连续内存分配允许连续的线性地址映射至非连续的物理地址，但需要修改页表。</p>
+<ol>
+<li>寻找一个新的连续线性地址空间</li>
+<li>依次分配一组非连续的页框</li>
+<li>为线性地址空间和非连续页框建立映射关系，即修改内核页表</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/vmalloc.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">vmalloc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> size)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vfree</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用vmalloc()建立非连续内存分配，并返回该高端内存页框的线性地址；<br>调用vfree()解除映射；</p>
+<p>vmalloc()分配物理地址不连续的内存，因而不能用于设备驱动程序，因为分配的线性地址只有经过内存处理单元MMU才能转换为非连续的物理地址，而设备通常不经过MMU直接访问内存。</p>
+<h3 id="slab"><a href="#slab" class="headerlink" title="slab"></a>slab</h3><p>slab层缓存频繁分配和释放的数据结构，维护一个空闲链表，当需要分配数据结构时，从空闲链表获得一个空闲的数据结构；同时释放的数据结构返回空闲链表。</p>
+<p>slab层为不同的对象（数据结构）维护一个高速缓存组，每个高速缓存包含多个slab，每个slab由一个或多个连续的物理页构成，并包含对象成员（缓存的数据结构）。</p>
+<h3 id="栈上的静态分配"><a href="#栈上的静态分配" class="headerlink" title="栈上的静态分配"></a>栈上的静态分配</h3><p>以上介绍的分配方法都是内存的动态分配，在内核程序运行过程中动态地申请内存；此外还可以在栈上静态地分配内存，但是内核栈大小固定、空间较小，因而对大块内存空间的动态分配可以有效节省栈资源，防止栈溢出。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>分配连续的物理页，则调用alloc_pages()、__get_free_pages()、kmalloc()</li>
+<li>分配高端内存页框，则调用alloc_pages()获得页描述符，之后调用kmap()将高端内存映射至内核地址空间</li>
+<li>分配虚拟地址连续的页，不需要物理地址连续，则调用vmalloc()</li>
+<li>频繁分配和释放大的数据结构，则调用slab高速缓存</li>
+</ol>
+
       
     </div>
 
@@ -442,7 +558,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">1.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存寻址"><span class="nav-number">1.1.</span> <span class="nav-text">内存寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#页"><span class="nav-number">1.1.1.</span> <span class="nav-text">页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页描述符"><span class="nav-number">1.1.2.</span> <span class="nav-text">页描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址空间"><span class="nav-number">1.1.3.</span> <span class="nav-text">地址空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核地址空间"><span class="nav-number">1.2.</span> <span class="nav-text">内核地址空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存管理区"><span class="nav-number">1.2.1.</span> <span class="nav-text">内存管理区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高端内存映射"><span class="nav-number">1.2.2.</span> <span class="nav-text">高端内存映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#永久内核映射"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">永久内核映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#临时内核映射"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">临时内核映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非连续内存分配"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">非连续内存分配</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">1.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存寻址"><span class="nav-number">1.1.</span> <span class="nav-text">内存寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#页"><span class="nav-number">1.1.1.</span> <span class="nav-text">页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页描述符"><span class="nav-number">1.1.2.</span> <span class="nav-text">页描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址空间"><span class="nav-number">1.1.3.</span> <span class="nav-text">地址空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核地址空间"><span class="nav-number">1.2.</span> <span class="nav-text">内核地址空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存管理区"><span class="nav-number">1.2.1.</span> <span class="nav-text">内存管理区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存分配接口"><span class="nav-number">1.2.2.</span> <span class="nav-text">内存分配接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分配以页为单位的内存"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">分配以页为单位的内存</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#分配内存页，返回页描述符"><span class="nav-number">1.2.2.1.0.1.</span> <span class="nav-text">分配内存页，返回页描述符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分配内存页，返回页的虚拟地址"><span class="nav-number">1.2.2.1.0.2.</span> <span class="nav-text">分配内存页，返回页的虚拟地址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分配以字节为单位的内存"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">分配以字节为单位的内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gfp-mask标志"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">gfp_mask标志</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高端内存映射"><span class="nav-number">1.2.3.</span> <span class="nav-text">高端内存映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#永久内核映射"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">永久内核映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#临时内核映射"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">临时内核映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slab"><span class="nav-number">1.2.4.</span> <span class="nav-text">slab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈上的静态分配"><span class="nav-number">1.2.5.</span> <span class="nav-text">栈上的静态分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.2.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
