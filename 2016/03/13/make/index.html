@@ -57,73 +57,22 @@
 
 
 
-<meta name="description" content="gcc编译器gcc（GNU Compiler Collection）是Linux平台的编译器。
-文件类型
-
-
-后缀
-文件类型
-
-
-
-
-.h
-头文件
-
-
-.c
-C源代码文件
-
-
-.o
-编译后的目标文件">
+<meta name="description" content="make工程管理器make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。
+当执行make时，make程序查找当前路径中名为“Makefile”的文件，并根据Makefile中的第一个目标寻找依赖关系，找出这个目标所需要的其他目标。若所需要的目标也依赖其他的目标，make程序嵌套寻找目标的依赖关系。
+make执行时，比较目标（target）和依赖文件（prerequisi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gcc编译器">
-<meta property="og:url" content="http://yoursite.com/2016/03/13/gcc/index.html">
+<meta property="og:title" content="make工程管理器">
+<meta property="og:url" content="http://yoursite.com/2016/03/13/make/index.html">
 <meta property="og:site_name" content="LostJeffle">
-<meta property="og:description" content="gcc编译器gcc（GNU Compiler Collection）是Linux平台的编译器。
-文件类型
-
-
-后缀
-文件类型
-
-
-
-
-.h
-头文件
-
-
-.c
-C源代码文件
-
-
-.o
-编译后的目标文件">
-<meta property="og:updated_time" content="2016-03-13T04:51:20.000Z">
+<meta property="og:description" content="make工程管理器make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。
+当执行make时，make程序查找当前路径中名为“Makefile”的文件，并根据Makefile中的第一个目标寻找依赖关系，找出这个目标所需要的其他目标。若所需要的目标也依赖其他的目标，make程序嵌套寻找目标的依赖关系。
+make执行时，比较目标（target）和依赖文件（prerequisi">
+<meta property="og:updated_time" content="2016-03-13T06:00:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gcc编译器">
-<meta name="twitter:description" content="gcc编译器gcc（GNU Compiler Collection）是Linux平台的编译器。
-文件类型
-
-
-后缀
-文件类型
-
-
-
-
-.h
-头文件
-
-
-.c
-C源代码文件
-
-
-.o
-编译后的目标文件">
+<meta name="twitter:title" content="make工程管理器">
+<meta name="twitter:description" content="make工程管理器make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。
+当执行make时，make程序查找当前路径中名为“Makefile”的文件，并根据Makefile中的第一个目标寻找依赖关系，找出这个目标所需要的其他目标。若所需要的目标也依赖其他的目标，make程序嵌套寻找目标的依赖关系。
+make执行时，比较目标（target）和依赖文件（prerequisi">
 
 
 
@@ -141,7 +90,7 @@ C源代码文件
   };
 </script>
 
-  <title> gcc编译器 | LostJeffle </title>
+  <title> make工程管理器 | LostJeffle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +220,7 @@ C源代码文件
             
             
               
-                gcc编译器
+                make工程管理器
               
             
           </h1>
@@ -283,7 +232,7 @@ C源代码文件
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-13T12:50:20+08:00" content="2016-03-13">
+            <time itemprop="dateCreated" datetime="2016-03-13T13:59:47+08:00" content="2016-03-13">
               2016-03-13
             </time>
           </span>
@@ -310,89 +259,22 @@ C源代码文件
       
 
       
-        <h1 id="gcc编译器"><a href="#gcc编译器" class="headerlink" title="gcc编译器"></a>gcc编译器</h1><p>gcc（GNU Compiler Collection）是Linux平台的编译器。</p>
-<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><table>
-<thead>
-<tr>
-<th>后缀</th>
-<th>文件类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.h</td>
-<td>头文件</td>
-</tr>
-<tr>
-<td>.c</td>
-<td>C源代码文件</td>
-</tr>
-<tr>
-<td>.o</td>
-<td>编译后的目标文件</td>
-</tr>
-</tbody>
-</table>
+        <h1 id="make工程管理器"><a href="#make工程管理器" class="headerlink" title="make工程管理器"></a>make工程管理器</h1><p>make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。</p>
+<p>当执行make时，make程序查找当前路径中名为“Makefile”的文件，并根据Makefile中的第一个目标寻找依赖关系，找出这个目标所需要的其他目标。若所需要的目标也依赖其他的目标，make程序嵌套寻找目标的依赖关系。</p>
+<p>make执行时，比较目标（target）和依赖文件（prerequisites）的修改日期，若依赖文件的修改日期比目标的修改日期新或目标不存在，则执行后续定义的命令，从而达到只对修改文件重新编译的目的。</p>
 <a id="more"></a>
-<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>gcc的编译过程为</p>
-<ul>
-<li>预处理 Pre-Processing</li>
-<li>编译 Compiling</li>
-<li>汇编 Assembling</li>
-<li>链接 Linking</li>
-</ul>
-<h5 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h5><p>调用预处理程序cpp，展开源文件中的预处理命令以及定义的宏，将包含的头文件的内容复制到源文件中，生成中间文件（.i）</p>
-<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><p>调用编译程序ccl将中间文件编译成汇编文件（.s）</p>
-<h5 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h5><p>调用汇编程序as将汇编文件汇编成目标文件（.o）</p>
-<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><p>调用链接程序ld将一个或多个目标文件链接成可执行文件</p>
-<h3 id="编译选项"><a href="#编译选项" class="headerlink" title="编译选项"></a>编译选项</h3><table>
-<thead>
-<tr>
-<th>选项</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-c</td>
-<td>编译，生成目标文件（.o）</td>
-</tr>
-<tr>
-<td>-o</td>
-<td>编译链接，生成可执行文件，可指定输出的可执行文件的文件名 -o filename</td>
-</tr>
-<tr>
-<td>-I dir</td>
-<td>头文件的搜索路径列表中添加dir目录</td>
-</tr>
-<tr>
-<td>-L dir</td>
-<td>库文件的搜索路径列表中添加dir目录</td>
-</tr>
-<tr>
-<td>-llibrary</td>
-<td>链接指定名为library的库文件</td>
-</tr>
-<tr>
-<td>-static</td>
-<td>链接静态库</td>
-</tr>
-</tbody>
-</table>
-<h3 id="链接库"><a href="#链接库" class="headerlink" title="链接库"></a>链接库</h3><p>程序编译时通常需要链接相应的函数库，函数库是一些头文件（.h）和库文件（.so或.a）的集合。</p>
-<p>Linux下头文件的默认路径为 /usr/include，库文件的默认路径为 /usr/lib，当程序编译所需的函数库不在默认路径中时，使用</p>
-<ul>
-<li><code>-I dir</code> 将指定的头文件的路径添加到默认搜索路径列表中</li>
-<li><code>-L dir</code> 将指定的库文件的路径添加到默认搜索路径列表中</li>
-<li><code>-llibrary</code> 链接指定名为library的库文件</li>
-</ul>
-<p>Linux下的库文件命名约定以“lib”起始，因而<code>-lname</code>相当于链接名为“libname”的库文件，name为变量。</p>
-<p>Linux下的库文件分为</p>
-<ul>
-<li>动态链接库（.so） 程序执行时所需的代码在运行时动态加载</li>
-<li>静态链接库（.a） 程序执行时所需的代码静态加载</li>
-</ul>
-<p>在链接时gcc默认使用动态链接库，当动态链接库不存在时，可使用<code>-static</code>选项使用静态链接库。</p>
+<h3 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h3><p>Makefile由一条条的规则构成，每条规则由依赖关系和命令两部分构成。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">targets: prerequisites</span><br><span class="line">command</span><br></pre></td></tr></table></figure>
+<p>tagets 是目标文件，Makefile中第一条规则的第一个目标作为最终目标，当运行make时程序根据最重目标的依赖关系嵌套执行。同一条规则的目标可以由多个目标构成，多个目标间以空格相隔。</p>
+<p>prerequisites 是目标所依赖的文件，同一个目标的多个依赖文件间以空格相隔。</p>
+<p>command 是命令，当命令不与“targets : prerequisites”同一行而另起一行时，command以<code>Tab键</code>起始。命令默认由UNIX的标准Shell解释执行。命令可以由多条命令行构成，每条命令行不必以“;”结尾，但当希望第二条命令行在第一条命令行的基础上运行时，必须将两条命令行写于同一行，并以“;”相隔。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># exec下的命令由command1、command2构成</span></span><br><span class="line"><span class="section">exec:</span></span><br><span class="line">    command1</span><br><span class="line">    command2</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># exec下的命令由command1、command2构成，command2运行在command1的基础上</span></span><br><span class="line"><span class="section">exec:</span></span><br><span class="line">    command1;command2</span><br></pre></td></tr></table></figure>
+<h4 id="伪目标"><a href="#伪目标" class="headerlink" title="伪目标"></a>伪目标</h4><p>当目标的依赖关系为空时，该目标是一个伪目标，相当于一个标签，执行时需要显式地指明该标签<code>make target</code></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">target:</span></span><br><span class="line">command</span><br></pre></td></tr></table></figure>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>Makefile中的变量通常是字符串，当Makefile执行时，其中的变量被扩展到相应的引用位置上。</p>
+<p>变量声明时可由“=”赋予初值，使用时在变量前加上“$”，并用“()”或“{}”将变量包含。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KERNEL_DIR = /home/Tegra/Kernel</span><br><span class="line"></span><br><span class="line"><span class="section">ko:</span></span><br><span class="line">	make -C <span class="variable">$(KERNEL_DIR)</span> M=<span class="variable">$(CURDIR)</span> <span class="variable">$(MAKE_ENV)</span> modules</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -416,17 +298,13 @@ C源代码文件
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/10/Memory-Management/" rel="next" title="内存管理">
-                <i class="fa fa-chevron-left"></i> 内存管理
+              <a href="/2016/03/13/gcc/" rel="next" title="gcc编译器">
+                <i class="fa fa-chevron-left"></i> gcc编译器
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/13/make/" rel="prev" title="make工程管理器">
-                make工程管理器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -537,7 +415,7 @@ C源代码文件
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gcc编译器"><span class="nav-number">1.</span> <span class="nav-text">gcc编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件类型"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-number">1.0.2.</span> <span class="nav-text">编译过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#预处理"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">汇编</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链接"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译选项"><span class="nav-number">1.0.3.</span> <span class="nav-text">编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接库"><span class="nav-number">1.0.4.</span> <span class="nav-text">链接库</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#make工程管理器"><span class="nav-number">1.</span> <span class="nav-text">make工程管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法规则"><span class="nav-number">1.0.1.</span> <span class="nav-text">语法规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪目标"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">伪目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">变量</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
