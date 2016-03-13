@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux kernel," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -57,22 +57,73 @@
 
 
 
-<meta name="description" content="虚拟文件系统 VFS虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。
-Unix文件系统文件文件是一个有序的字节串。
-目录目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。">
+<meta name="description" content="gcc编译器gcc（GNU Compiler Collection）是Linux平台的编译器。
+文件类型
+
+
+后缀
+文件类型
+
+
+
+
+.h
+头文件
+
+
+.c
+C源代码文件
+
+
+.o
+编译后的目标文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虚拟文件系统">
-<meta property="og:url" content="http://yoursite.com/2016/03/10/Virtual-File-System/index.html">
+<meta property="og:title" content="gcc编译器">
+<meta property="og:url" content="http://yoursite.com/2016/03/13/gcc/index.html">
 <meta property="og:site_name" content="LostJeffle">
-<meta property="og:description" content="虚拟文件系统 VFS虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。
-Unix文件系统文件文件是一个有序的字节串。
-目录目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。">
-<meta property="og:updated_time" content="2016-03-11T03:03:44.000Z">
+<meta property="og:description" content="gcc编译器gcc（GNU Compiler Collection）是Linux平台的编译器。
+文件类型
+
+
+后缀
+文件类型
+
+
+
+
+.h
+头文件
+
+
+.c
+C源代码文件
+
+
+.o
+编译后的目标文件">
+<meta property="og:updated_time" content="2016-03-13T04:51:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虚拟文件系统">
-<meta name="twitter:description" content="虚拟文件系统 VFS虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。
-Unix文件系统文件文件是一个有序的字节串。
-目录目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。">
+<meta name="twitter:title" content="gcc编译器">
+<meta name="twitter:description" content="gcc编译器gcc（GNU Compiler Collection）是Linux平台的编译器。
+文件类型
+
+
+后缀
+文件类型
+
+
+
+
+.h
+头文件
+
+
+.c
+C源代码文件
+
+
+.o
+编译后的目标文件">
 
 
 
@@ -90,7 +141,7 @@ Unix文件系统文件文件是一个有序的字节串。
   };
 </script>
 
-  <title> 虚拟文件系统 | LostJeffle </title>
+  <title> gcc编译器 | LostJeffle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -220,7 +271,7 @@ Unix文件系统文件文件是一个有序的字节串。
             
             
               
-                虚拟文件系统
+                gcc编译器
               
             
           </h1>
@@ -232,8 +283,8 @@ Unix文件系统文件文件是一个有序的字节串。
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-10T18:44:37+08:00" content="2016-03-10">
-              2016-03-10
+            <time itemprop="dateCreated" datetime="2016-03-13T12:50:20+08:00" content="2016-03-13">
+              2016-03-13
             </time>
           </span>
 
@@ -259,43 +310,89 @@ Unix文件系统文件文件是一个有序的字节串。
       
 
       
-        <h1 id="虚拟文件系统-VFS"><a href="#虚拟文件系统-VFS" class="headerlink" title="虚拟文件系统 VFS"></a>虚拟文件系统 VFS</h1><p>虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。</p>
-<h2 id="Unix文件系统"><a href="#Unix文件系统" class="headerlink" title="Unix文件系统"></a>Unix文件系统</h2><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件是一个有序的字节串。</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。</p>
-<a id="more"></a>
-<h3 id="索引节点"><a href="#索引节点" class="headerlink" title="索引节点"></a>索引节点</h3><p>Unix系统将文件的相关信息（如访问控制权限、大小、拥有者、创建时间等），即文件的元数据，存储在一个单独的数据结构中，称为索引节点inode（index node）。</p>
-<h3 id="超级块"><a href="#超级块" class="headerlink" title="超级块"></a>超级块</h3><p>文件系统的控制信息存储在超级块中，超级块是一种包含单独文件信息和文件系统信息的数据结构。</p>
-<h2 id="VFS对象"><a href="#VFS对象" class="headerlink" title="VFS对象"></a>VFS对象</h2><p>VFS使用一族数据结构来代表通用文件对象，在C语言中用结构体实现。</p>
-<table>
+        <h1 id="gcc编译器"><a href="#gcc编译器" class="headerlink" title="gcc编译器"></a>gcc编译器</h1><p>gcc（GNU Compiler Collection）是Linux平台的编译器。</p>
+<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><table>
 <thead>
 <tr>
-<th>对象</th>
+<th>后缀</th>
+<th>文件类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.h</td>
+<td>头文件</td>
+</tr>
+<tr>
+<td>.c</td>
+<td>C源代码文件</td>
+</tr>
+<tr>
+<td>.o</td>
+<td>编译后的目标文件</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>gcc的编译过程为</p>
+<ul>
+<li>预处理 Pre-Processing</li>
+<li>编译 Compiling</li>
+<li>汇编 Assembling</li>
+<li>链接 Linking</li>
+</ul>
+<h5 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h5><p>调用预处理程序cpp，展开源文件中的预处理命令以及定义的宏，将包含的头文件的内容复制到源文件中，生成中间文件（.i）</p>
+<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><p>调用编译程序ccl将中间文件编译成汇编文件（.s）</p>
+<h5 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h5><p>调用汇编程序as将汇编文件汇编成目标文件（.o）</p>
+<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><p>调用链接程序ld将一个或多个目标文件链接成可执行文件</p>
+<h3 id="编译选项"><a href="#编译选项" class="headerlink" title="编译选项"></a>编译选项</h3><table>
+<thead>
+<tr>
+<th>选项</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>超级块对象</td>
-<td>代表一个安装的文件系统</td>
+<td>-c</td>
+<td>编译，生成目标文件（.o）</td>
 </tr>
 <tr>
-<td>索引节点对象</td>
-<td>代表一个文件</td>
+<td>-o</td>
+<td>编译链接，生成可执行文件，可指定输出的可执行文件的文件名 -o filename</td>
 </tr>
 <tr>
-<td>目录项对象</td>
-<td>代表一个目录项</td>
+<td>-I dir</td>
+<td>头文件的搜索路径列表中添加dir目录</td>
 </tr>
 <tr>
-<td>文件对象</td>
-<td>代表一个由进程打开的文件</td>
+<td>-L dir</td>
+<td>库文件的搜索路径列表中添加dir目录</td>
+</tr>
+<tr>
+<td>-llibrary</td>
+<td>链接指定名为library的库文件</td>
+</tr>
+<tr>
+<td>-static</td>
+<td>链接静态库</td>
 </tr>
 </tbody>
 </table>
-<h3 id="索引节点对象"><a href="#索引节点对象" class="headerlink" title="索引节点对象"></a>索引节点对象</h3><p>索引节点inode代表文件系统中的一个文件，当文件被访问时，内核在内存中创建该索引节点；索引节点包含了文件的相关信息。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">include &lt;linux/fs.h&gt;</span><br><span class="line"><span class="keyword">struct</span> inode &#123;</span><br><span class="line">	<span class="keyword">dev_t</span>                  i_rdev;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> list_head       i_devices;  <span class="comment">/* 设备链表 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">union</span> &#123;</span><br><span class="line">		<span class="keyword">struct</span> pipe_inode_info    *i_pipe;  <span class="comment">/* 管道 */</span></span><br><span class="line">		<span class="keyword">struct</span> block_device       *i_bdev;  <span class="comment">/* 块设备 */</span></span><br><span class="line">		<span class="keyword">struct</span> cdev               *i_cdev;  <span class="comment">/* 字符设备 */</span></span><br><span class="line">		<span class="keyword">char</span>                      *i_link;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> file_operations *i_fop;  <span class="comment">/* 文件操作指针 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span>                   *i_private;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="文件对象"><a href="#文件对象" class="headerlink" title="文件对象"></a>文件对象</h3><p>文件file代表进程中一个打开的文件，是一个文件描述符，由内核在open()时创建，文件的所有实例关闭后由close()释放。一个文件对应一个唯一的索引节点对象inode，但可以对应多个文件对象file。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> file &#123;</span><br><span class="line">	<span class="keyword">mode_t</span>         f_mode;     <span class="comment">/* 文件模式   FMODE_READ文件可读；FMODE_WRITE文件可写 */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span>   f_flags;    <span class="comment">/* 文件标志   O_NONBLOCK, O_RDONLY, O_SYNC */</span></span><br><span class="line">	<span class="keyword">loff_t</span>         f_pos;      dataflowdataflow<span class="comment">/* 当前读写位置 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> dentry          f*_dentry;  <span class="comment">/* 目录项 */</span></span><br><span class="line">	<span class="keyword">struct</span> file_operations *f_op;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span>                   *private_data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="链接库"><a href="#链接库" class="headerlink" title="链接库"></a>链接库</h3><p>程序编译时通常需要链接相应的函数库，函数库是一些头文件（.h）和库文件（.so或.a）的集合。</p>
+<p>Linux下头文件的默认路径为 /usr/include，库文件的默认路径为 /usr/lib，当程序编译所需的函数库不在默认路径中时，使用</p>
+<ul>
+<li><code>-I dir</code> 将指定的头文件的路径添加到默认搜索路径列表中</li>
+<li><code>-L dir</code> 将指定的库文件的路径添加到默认搜索路径列表中</li>
+<li><code>-llibrary</code> 链接指定名为library的库文件</li>
+</ul>
+<p>Linux下的库文件命名约定以“lib”起始，因而<code>-lname</code>相当于链接名为“libname”的库文件，name为变量。</p>
+<p>Linux下的库文件分为</p>
+<ul>
+<li>动态链接库（.so） 程序执行时所需的代码在运行时动态加载</li>
+<li>静态链接库（.a） 程序执行时所需的代码静态加载</li>
+</ul>
+<p>在链接时gcc默认使用动态链接库，当动态链接库不存在时，可使用<code>-static</code>选项使用静态链接库。</p>
 
       
     </div>
@@ -310,7 +407,7 @@ Unix文件系统文件文件是一个有序的字节串。
       
         <div class="post-tags">
           
-            <a href="/tags/linux-kernel/" rel="tag">#linux kernel</a>
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -319,13 +416,13 @@ Unix文件系统文件文件是一个有序的字节串。
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/03/10/Memory-Management/" rel="next" title="内存管理">
+                <i class="fa fa-chevron-left"></i> 内存管理
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/10/Memory-Management/" rel="prev" title="内存管理">
-                内存管理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -436,7 +533,7 @@ Unix文件系统文件文件是一个有序的字节串。
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟文件系统-VFS"><span class="nav-number">1.</span> <span class="nav-text">虚拟文件系统 VFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unix文件系统"><span class="nav-number">1.1.</span> <span class="nav-text">Unix文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.1.2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引节点"><span class="nav-number">1.1.3.</span> <span class="nav-text">索引节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超级块"><span class="nav-number">1.1.4.</span> <span class="nav-text">超级块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VFS对象"><span class="nav-number">1.2.</span> <span class="nav-text">VFS对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#索引节点对象"><span class="nav-number">1.2.1.</span> <span class="nav-text">索引节点对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件对象"><span class="nav-number">1.2.2.</span> <span class="nav-text">文件对象</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gcc编译器"><span class="nav-number">1.</span> <span class="nav-text">gcc编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件类型"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-number">1.0.2.</span> <span class="nav-text">编译过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#预处理"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">汇编</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链接"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译选项"><span class="nav-number">1.0.3.</span> <span class="nav-text">编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接库"><span class="nav-number">1.0.4.</span> <span class="nav-text">链接库</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
