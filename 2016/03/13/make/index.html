@@ -67,7 +67,7 @@ make执行时，比较目标（target）和依赖文件（prerequisi">
 <meta property="og:description" content="make工程管理器make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。
 当执行make时，make程序查找当前路径中名为“Makefile”的文件，并根据Makefile中的第一个目标寻找依赖关系，找出这个目标所需要的其他目标。若所需要的目标也依赖其他的目标，make程序嵌套寻找目标的依赖关系。
 make执行时，比较目标（target）和依赖文件（prerequisi">
-<meta property="og:updated_time" content="2016-03-13T06:12:30.000Z">
+<meta property="og:updated_time" content="2016-03-13T06:20:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="make工程管理器">
 <meta name="twitter:description" content="make工程管理器make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。
@@ -264,7 +264,7 @@ make执行时，比较目标（target）和依赖文件（prerequisi">
 <p>make执行时，比较目标（target）和依赖文件（prerequisites）的修改日期，若依赖文件的修改日期比目标的修改日期新或目标不存在，则执行后续定义的命令，从而达到只对修改文件重新编译的目的。</p>
 <a id="more"></a>
 <h3 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h3><p>Makefile由一条条的规则构成，每条规则由依赖关系和命令两部分构成。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">targets: prerequisites</span><br><span class="line">command</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">targets: prerequisites</span><br><span class="line">command</span><br></pre></td></tr></table></figure>
 <p>tagets 是目标文件，Makefile中第一条规则的第一个目标作为最终目标，当运行make时程序根据最重目标的依赖关系嵌套执行。同一条规则的目标可以由多个目标构成，多个目标间以空格相隔。</p>
 <p>prerequisites 是目标所依赖的文件，同一个目标的多个依赖文件间以空格相隔。</p>
 <p>command 是命令，当命令不与“targets : prerequisites”同一行而另起一行时，command以<code>Tab键</code>起始。命令默认由UNIX的标准Shell解释执行。命令可以由多条命令行构成，每条命令行不必以“;”结尾，但当希望第二条命令行在第一条命令行的基础上运行时，必须将两条命令行写于同一行，并以“;”相隔。</p>
