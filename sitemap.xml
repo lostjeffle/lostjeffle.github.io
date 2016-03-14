@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://yoursite.com/2016/03/13/make/</loc>
+    
+    <lastmod>2016-03-13T06:25:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/03/13/gcc/</loc>
+    
+    <lastmod>2016-03-13T04:51:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/03/10/Memory-Management/</loc>
+    
+    <lastmod>2016-03-12T05:42:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/03/10/Virtual-File-System/</loc>
+    
+    <lastmod>2016-03-11T03:03:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2016-03-10T14:16:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2016-03-10T14:13:40.000Z</lastmod>
+    
+  </url>
+  
+</urlset>
