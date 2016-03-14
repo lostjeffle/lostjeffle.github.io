@@ -1,0 +1,729 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux device driver," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="IO区域内核通过读写外设的IO寄存器来对外设进行控制。寄存器可以映射到IO端口，处理器通过独立的IO地址空间访问寄存器；或者也可以映射到IO内存，处理器通过内存地址空间访问寄存器。
+Linux中，IO寄存器可以映射到IO空间，也可以映射到内存空间，系统将IO端口和IO内存统称为IO区域（IO region）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IO区域">
+<meta property="og:url" content="http://yoursite.com/2016/03/14/io-region/index.html">
+<meta property="og:site_name" content="LostJeffle">
+<meta property="og:description" content="IO区域内核通过读写外设的IO寄存器来对外设进行控制。寄存器可以映射到IO端口，处理器通过独立的IO地址空间访问寄存器；或者也可以映射到IO内存，处理器通过内存地址空间访问寄存器。
+Linux中，IO寄存器可以映射到IO空间，也可以映射到内存空间，系统将IO端口和IO内存统称为IO区域（IO region）。">
+<meta property="og:updated_time" content="2016-03-14T13:17:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IO区域">
+<meta name="twitter:description" content="IO区域内核通过读写外设的IO寄存器来对外设进行控制。寄存器可以映射到IO端口，处理器通过独立的IO地址空间访问寄存器；或者也可以映射到IO内存，处理器通过内存地址空间访问寄存器。
+Linux中，IO寄存器可以映射到IO空间，也可以映射到内存空间，系统将IO端口和IO内存统称为IO区域（IO region）。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> IO区域 | LostJeffle </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LostJeffle</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'kd8Li3UqssgpyxA9GSfy','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                IO区域
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-14T21:16:58+08:00" content="2016-03-14">
+              2016-03-14
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="IO区域"><a href="#IO区域" class="headerlink" title="IO区域"></a>IO区域</h1><p>内核通过读写外设的IO寄存器来对外设进行控制。寄存器可以映射到IO端口，处理器通过独立的IO地址空间访问寄存器；或者也可以映射到IO内存，处理器通过内存地址空间访问寄存器。</p>
+<p>Linux中，IO寄存器可以映射到IO空间，也可以映射到内存空间，系统将IO端口和IO内存统称为IO区域（IO region）。</p>
+<a id="more"></a>
+<h3 id="IO端口"><a href="#IO端口" class="headerlink" title="IO端口"></a>IO端口</h3><p>将IO寄存器映射至独立的IO地址空间，通过特殊的访问函数访问IO端口。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> resource *<span class="title">request_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> first, <span class="keyword">unsigned</span> <span class="keyword">long</span> n, <span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">inb</span><span class="params">(<span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outb</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span> byte, <span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">inw</span><span class="params">(<span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outw</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">short</span> word, <span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">inl</span><span class="params">(<span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outl</span><span class="params">(<span class="keyword">unsigned</span> longword, <span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">release_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> start, <span class="keyword">unsigned</span> <span class="keyword">long</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="申请IO端口"><a href="#申请IO端口" class="headerlink" title="申请IO端口"></a>申请IO端口</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> resource *<span class="title">request_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> first, <span class="keyword">unsigned</span> <span class="keyword">long</span> n, <span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用<code>request_region()</code>申请起始于 first 的 n 个IO端口区域，并命名为 name。分配成功，返回非NULL值，否则返回NULL。</p>
+<h4 id="访问端口"><a href="#访问端口" class="headerlink" title="访问端口"></a>访问端口</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">inb</span><span class="params">(<span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outb</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span> byte, <span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">inw</span><span class="params">(<span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outw</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">short</span> word, <span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">inl</span><span class="params">(<span class="keyword">unsigned</span> port)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outl</span><span class="params">(<span class="keyword">unsigned</span> longword, <span class="keyword">unsigned</span> port)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="释放IO端口"><a href="#释放IO端口" class="headerlink" title="释放IO端口"></a>释放IO端口</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">release_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> start, <span class="keyword">unsigned</span> <span class="keyword">long</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用<code>release_region()</code>释放申请的IO端口区域。</p>
+<h3 id="IO内存"><a href="#IO内存" class="headerlink" title="IO内存"></a>IO内存</h3><p>处理器将IO内存（寄存器或设备内存）映射至内核地址空间，通过内核虚拟地址访问IO内存。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> resource *<span class="title">request_mem_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> start, <span class="keyword">unsigned</span> <span class="keyword">long</span> len, <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">ioremap</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> phys_addr, <span class="keyword">unsigned</span> <span class="keyword">long</span> size)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">ioread8</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">ioread16</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">ioread32</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">iowrite8</span><span class="params">(u8 value, <span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">iowrite16</span><span class="params">(u16 value, <span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">iowrite32</span><span class="params">(u32 value, <span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">iounmap</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">release_mem_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> start, <span class="keyword">unsigned</span> <span class="keyword">long</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="申请IO内存"><a href="#申请IO内存" class="headerlink" title="申请IO内存"></a>申请IO内存</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> resource *<span class="title">request_mem_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> start, <span class="keyword">unsigned</span> <span class="keyword">long</span> len, <span class="keyword">char</span> *name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用<code>request_mem_region()</code>申请 start 地址开始的 len 字节长的设备内存区域，并命名为 name。申请成功返回非NULL指针，否则返回NULL。</p>
+<p>函数向内核申请注册该内存区域，以防止其他驱动程序重复申请该内存区域，但并不实现内存映射。</p>
+<h4 id="内存映射"><a href="#内存映射" class="headerlink" title="内存映射"></a>内存映射</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">ioremap</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> phys_addr, <span class="keyword">unsigned</span> <span class="keyword">long</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>由于设备的硬件设计已知，设备内存的物理地址通常已知，但当 MMU 启用时，处理器必须通过虚拟地址访问设备内存。</p>
+<p>调用<code>ioremap()</code>将IO内存的物理地址映射到内核地址空间的虚拟地址，为IO内存区域分配虚拟地址。函数将 phys_addr 起始的 size 字节长的IO内存映射至内核地址空间，成功时返回映射的内核地址空间的虚拟地址，否则返回NULL。</p>
+<h4 id="访问内存"><a href="#访问内存" class="headerlink" title="访问内存"></a>访问内存</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">ioread8</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">ioread16</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">ioread32</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">iowrite8</span><span class="params">(u8 value, <span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">iowrite16</span><span class="params">(u16 value, <span class="keyword">void</span> *addr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">iowrite32</span><span class="params">(u32 value, <span class="keyword">void</span> *addr)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>为了代码的移植性，通常不能直接使用<code>ioremap()</code>返回的内核虚拟地址以指针的形式访问IO内存，而是使用封装的IO内存访问函数对IO内存进行读写。</p>
+<h4 id="释放内存映射"><a href="#释放内存映射" class="headerlink" title="释放内存映射"></a>释放内存映射</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">iounmap</span><span class="params">(<span class="keyword">void</span> *addr)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用<code>iounmap()</code>释放内存映射。</p>
+<h4 id="释放IO内存"><a href="#释放IO内存" class="headerlink" title="释放IO内存"></a>释放IO内存</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">release_mem_region</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> start, <span class="keyword">unsigned</span> <span class="keyword">long</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用<code>release_mem_region()</code>释放申请的IO内存。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux-device-driver/" rel="tag">#linux device driver</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/13/make/" rel="next" title="make工程管理器">
+                <i class="fa fa-chevron-left"></i> make工程管理器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Jeffle" />
+          <p class="site-author-name" itemprop="name">Jeffle</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO区域"><span class="nav-number">1.</span> <span class="nav-text">IO区域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IO端口"><span class="nav-number">1.0.1.</span> <span class="nav-text">IO端口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#申请IO端口"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">申请IO端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问端口"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">访问端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#释放IO端口"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">释放IO端口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO内存"><span class="nav-number">1.0.2.</span> <span class="nav-text">IO内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#申请IO内存"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">申请IO内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存映射"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">内存映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问内存"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">访问内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#释放内存映射"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">释放内存映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#释放IO内存"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">释放IO内存</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffle</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
