@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,linux device driver," />
+  <meta name="keywords" content="linux kernel,linux device driver," />
 
 
 
@@ -57,21 +57,18 @@
 
 
 
-<meta name="description" content="DMAProgrammed Input/Output (PIO)CPU 直接负责主存与外部设备间的数据传输，同时受到同时只能传输一个或两个 DWORD 的限制。
-Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输，而不受 CPU 的控制，同时不受 DWORD 传输的限制。">
+<meta name="description" content="DMADMA是一种硬件机制，它允许外围设备和主内存之间直接传输IO数据，而不需要CPU的参与。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DMA">
 <meta property="og:url" content="http://yoursite.com/2016/03/15/DMA/index.html">
 <meta property="og:site_name" content="LostJeffle">
-<meta property="og:description" content="DMAProgrammed Input/Output (PIO)CPU 直接负责主存与外部设备间的数据传输，同时受到同时只能传输一个或两个 DWORD 的限制。
-Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输，而不受 CPU 的控制，同时不受 DWORD 传输的限制。">
-<meta property="og:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-15-BMD.jpg?imageMogr2/thumbnail/!50p">
-<meta property="og:updated_time" content="2016-03-15T06:55:46.000Z">
+<meta property="og:description" content="DMADMA是一种硬件机制，它允许外围设备和主内存之间直接传输IO数据，而不需要CPU的参与。">
+<meta property="og:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-15-BMD.jpg">
+<meta property="og:updated_time" content="2016-04-29T07:38:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DMA">
-<meta name="twitter:description" content="DMAProgrammed Input/Output (PIO)CPU 直接负责主存与外部设备间的数据传输，同时受到同时只能传输一个或两个 DWORD 的限制。
-Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输，而不受 CPU 的控制，同时不受 DWORD 传输的限制。">
-<meta name="twitter:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-15-BMD.jpg?imageMogr2/thumbnail/!50p">
+<meta name="twitter:description" content="DMADMA是一种硬件机制，它允许外围设备和主内存之间直接传输IO数据，而不需要CPU的参与。">
+<meta name="twitter:image" content="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-15-BMD.jpg">
 
 
 
@@ -288,11 +285,36 @@ Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输
       
 
       
-        <h1 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h1><h4 id="Programmed-Input-Output-PIO"><a href="#Programmed-Input-Output-PIO" class="headerlink" title="Programmed Input/Output (PIO)"></a>Programmed Input/Output (PIO)</h4><p>CPU 直接负责主存与外部设备间的数据传输，同时受到同时只能传输一个或两个 DWORD 的限制。</p>
-<h4 id="Direct-Memory-Access-DMA"><a href="#Direct-Memory-Access-DMA" class="headerlink" title="Direct Memory Access (DMA)"></a>Direct Memory Access (DMA)</h4><p>实现外部设备与主存间的直接的数据传输，而不受 CPU 的控制，同时不受 DWORD 传输的限制。</p>
+        <h1 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h1><p>DMA是一种硬件机制，它允许外围设备和主内存之间直接传输IO数据，而不需要CPU的参与。</p>
 <a id="more"></a>
+<h4 id="Programmed-Input-Output-PIO"><a href="#Programmed-Input-Output-PIO" class="headerlink" title="Programmed Input/Output (PIO)"></a>Programmed Input/Output (PIO)</h4><p>CPU 直接负责主存与外部设备间的数据传输，同时受到同时只能传输一个或两个 DWORD 的限制。</p>
+<h4 id="Direct-Memory-Access-DMA"><a href="#Direct-Memory-Access-DMA" class="headerlink" title="Direct Memory Access (DMA)"></a>Direct Memory Access (DMA)</h4><p>实现外部设备与主存间的直接的数据传输，而不受 CPU 的控制，同时不受 DWORD 传输的限制。</p>
 <h5 id="System-DMA"><a href="#System-DMA" class="headerlink" title="System DMA"></a>System DMA</h5><p>在总线中央位置有一个共享的各设备可访问的 DMA 控制器，负责 DMA 数据传输的发起。</p>
-<h5 id="Bus-Master-DMA"><a href="#Bus-Master-DMA" class="headerlink" title="Bus Master DMA"></a>Bus Master DMA</h5><p>由终端设备实现DMA数据传输的发起。当设备驱动程序对设备发送指令和缓存信息时，设备发起设备缓存和主存间的DMA数据传输。<br><img src="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-15-BMD.jpg?imageMogr2/thumbnail/!50p" alt="BMD"></p>
+<h5 id="Bus-Master-DMA"><a href="#Bus-Master-DMA" class="headerlink" title="Bus Master DMA"></a>Bus Master DMA</h5><p>由终端设备实现DMA数据传输的发起。当设备驱动程序对设备发送指令和缓存信息时，设备发起设备缓存和主存间的DMA数据传输。<br><img src="http://7xqm99.com1.z0.glb.clouddn.com/2016-03-15-BMD.jpg" alt="BMD-c300"></p>
+<p>DMA的数据传输分为两种情况</p>
+<h5 id="软件对数据请求"><a href="#软件对数据请求" class="headerlink" title="软件对数据请求"></a>软件对数据请求</h5><ol>
+<li>进程调用read函数，驱动程序分配一个DMA缓冲区，并让硬件将数据传输到这个缓冲区，之后进程进入睡眠状态；</li>
+<li>硬件将数据写入缓冲区，写入完毕后，产生一个中断；</li>
+<li>中断处理程序获得输入的数据，应答中断，并唤醒进程，该进程开始读取数据。</li>
+</ol>
+<h5 id="硬件异步地传输数据，硬件不断地写入数据"><a href="#硬件异步地传输数据，硬件不断地写入数据" class="headerlink" title="硬件异步地传输数据，硬件不断地写入数据"></a>硬件异步地传输数据，硬件不断地写入数据</h5><ol>
+<li>硬件产生中断，表示有新数据到来；</li>
+<li>中断处理程序分配一个缓冲区，并告诉硬件向哪里传输数据；</li>
+<li>外围设备将数据写入缓冲区，完成后产生另一个中断；</li>
+<li>中断处理程序分发新数据，唤醒任何相关进程，然后执行清理工作。</li>
+</ol>
+<h3 id="DMA映射"><a href="#DMA映射" class="headerlink" title="DMA映射"></a>DMA映射</h3><p>DMA硬件识别 dma_addr_t 类型的总线地址，DMA操作需要分配DMA缓冲区，并将该缓冲区的总线地址传递给硬件设备。</p>
+<p>DMA映射是分配DMA缓冲区与生成该缓冲区设备可访问地址的组合。</p>
+<p>根据DMA缓冲区期望保留的时间长短，共有两种DMA映射</p>
+<ul>
+<li>一致性DMA映射</li>
+<li>流式DMA映射</li>
+</ul>
+<h4 id="一致性DMA映射"><a href="#一致性DMA映射" class="headerlink" title="一致性DMA映射"></a>一致性DMA映射</h4><p>一致性DMA映射存在于驱动程序的生命周期中。一致性映射的缓冲区可同时被CPU和外围设备访问，因而一致性映射必须保存在一致性缓存中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">  一致性映射缓冲区的分配和映射</span><br><span class="line">  dev是描述硬件设备的结构，size是缓冲区的大小，</span><br><span class="line">  函数的返回值是分配的缓冲区的内核虚拟地址，可以被驱动程序使用；相关的总线地址保存在dma_handle中；</span><br><span class="line">  flag参数描述如何分配内存的GFP_值，可以是GFP_KERNEL或GFP_ATOMIC</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">dma_alloc_coherent</span><span class="params">(<span class="keyword">struct</span> device *dev, size_t size, dma_addr_t *dma_handle, <span class="keyword">int</span> flag)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">  释放缓冲区</span><br><span class="line">  dev是描述硬件设备的结构，size是缓冲区的大小，vaddr是缓冲区的虚拟地址，dma_handle是缓冲区的总线地址</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dma_free_coherent</span><span class="params">(<span class="keyword">struct</span> device *dev, size_t size, <span class="keyword">void</span> *vaddr, dma_addr_t *dma_handle)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用 dma_alloc_coherent() 实现一致性映射缓冲区的分配和映射，<br>调用 dma_free_coherent() 实现一致性映射缓冲区的释放。</p>
+<h4 id="流式DMA缓冲区"><a href="#流式DMA缓冲区" class="headerlink" title="流式DMA缓冲区"></a>流式DMA缓冲区</h4><p>流式映射可以最大程度地优化性能，但也必须服从更加严格的访问规则。</p>
 
       
     </div>
@@ -307,7 +329,7 @@ Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag">#linux</a>
+            <a href="/tags/linux-kernel/" rel="tag">#linux kernel</a>
           
             <a href="/tags/linux-device-driver/" rel="tag">#linux device driver</a>
           
@@ -402,7 +424,7 @@ Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -435,7 +457,7 @@ Direct Memory Access (DMA)实现外部设备与主存间的直接的数据传输
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DMA"><span class="nav-number">1.</span> <span class="nav-text">DMA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Programmed-Input-Output-PIO"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Programmed Input/Output (PIO)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Direct-Memory-Access-DMA"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Direct Memory Access (DMA)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#System-DMA"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">System DMA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bus-Master-DMA"><span class="nav-number">1.0.0.2.2.</span> <span class="nav-text">Bus Master DMA</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DMA"><span class="nav-number">1.</span> <span class="nav-text">DMA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Programmed-Input-Output-PIO"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Programmed Input/Output (PIO)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Direct-Memory-Access-DMA"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Direct Memory Access (DMA)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#System-DMA"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">System DMA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bus-Master-DMA"><span class="nav-number">1.0.0.2.2.</span> <span class="nav-text">Bus Master DMA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软件对数据请求"><span class="nav-number">1.0.0.2.3.</span> <span class="nav-text">软件对数据请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件异步地传输数据，硬件不断地写入数据"><span class="nav-number">1.0.0.2.4.</span> <span class="nav-text">硬件异步地传输数据，硬件不断地写入数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DMA映射"><span class="nav-number">1.0.1.</span> <span class="nav-text">DMA映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性DMA映射"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">一致性DMA映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流式DMA缓冲区"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">流式DMA缓冲区</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
