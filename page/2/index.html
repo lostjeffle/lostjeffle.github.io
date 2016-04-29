@@ -288,28 +288,12 @@
 
       
         
-          
-            <h1 id="虚拟文件系统-VFS"><a href="#虚拟文件系统-VFS" class="headerlink" title="虚拟文件系统 VFS"></a>虚拟文件系统 VFS</h1><p>虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。<br><br></p>
-<p>###Unix文件系统</p>
-<p>####文件<br>文件是一个有序的字节串。</p>
-<p>####目录<br>目录用来容纳子目录和文件。Unix系统中目录属于普通文件，它列出包含在其中的所有文件。文件路径的每一部分都称为目录条目，即目录项。</p>
-<p>####索引节点<br>Unix系统将文件的相关信息（如访问控制权限、大小、拥有者、创建时间等），即文件的元数据，存储在一个单独的数据结构中，称为索引节点inode（index node）。</p>
-<p>####超级块<br>文件系统的控制信息存储在超级块中，超级块是一种包含单独文件信息和文件系统信息的数据结构。<br><br></p>
-<p>###VFS对象<br>VFS使用一族数据结构来代表通用文件对象，在C语言中用结构体实现。</p>
-<ul>
-<li>超级块对象        代表一个安装的文件系统</li>
-<li>索引节点对象    代表一个文件</li>
-<li>目录项对象        代表一个目录项</li>
-<li>文件对象        代表一个由进程打开的文件</li>
-</ul>
-<p>####索引节点对象<br>索引节点inode代表文件系统中的一个文件，当文件被访问时，内核在内存中创建该索引节点；索引节点包含了文件的相关信息。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">include &lt;linux/fs.h&gt;</span><br><span class="line"><span class="keyword">struct</span> inode &#123;</span><br><span class="line">	<span class="keyword">dev_t</span>                  i_rdev;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> list_head       i_devices;  <span class="comment">/* 设备链表 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">union</span> &#123;</span><br><span class="line">		<span class="keyword">struct</span> pipe_inode_info    *i_pipe;  <span class="comment">/* 管道 */</span></span><br><span class="line">		<span class="keyword">struct</span> block_device       *i_bdev;  <span class="comment">/* 块设备 */</span></span><br><span class="line">		<span class="keyword">struct</span> cdev               *i_cdev;  <span class="comment">/* 字符设备 */</span></span><br><span class="line">		<span class="keyword">char</span>                      *i_link;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> file_operations *i_fop;  <span class="comment">/* 文件操作指针 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span>                   *i_private;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<p>####文件对象<br>文件file代表进程中一个打开的文件，是一个文件描述符，由内核在open()时创建，文件的所有实例关闭后由close()释放。一个文件对应一个唯一的索引节点对象inode，但可以对应多个文件对象file。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> file &#123;</span><br><span class="line">	<span class="keyword">mode_t</span>         f_mode;     <span class="comment">/* 文件模式   FMODE_READ文件可读；FMODE_WRITE文件可写 */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span>   f_flags;    <span class="comment">/* 文件标志   O_NONBLOCK, O_RDONLY, O_SYNC */</span></span><br><span class="line">	<span class="keyword">loff_t</span>         f_pos;      dataflowdataflow<span class="comment">/* 当前读写位置 */</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">struct</span> dentry          f*_dentry;  <span class="comment">/* 目录项 */</span></span><br><span class="line">	<span class="keyword">struct</span> file_operations *f_op;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span>                   *private_data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></p>
-
-          
+          <h1 id="虚拟文件系统-VFS"><a href="#虚拟文件系统-VFS" class="headerlink" title="虚拟文件系统 VFS"></a>虚拟文件系统 VFS</h1><p>虚拟文件系统 VFS 建立在统一的抽象接口和数据结构上，用以支持不同的文件系统和物理介质。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/10/Virtual-File-System/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
