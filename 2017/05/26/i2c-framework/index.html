@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kernel,bus," />
 
 
 
@@ -57,15 +57,50 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LostJeffle">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Linux I2C FrameworkLinux kernel: 3.10.67
+I2C Protocol: UM10204 I2C-bus specification and user manual 
+[TOC]
+I2C Bus ProtocolI2C（Inter-Integrated Circuit）是 Philips 推出的适用于近距离低速芯片间通信的主从式的串行总线标准，支持多个主节点和多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="I2C Framework">
+<meta property="og:url" content="http://yoursite.com/2017/05/26/i2c-framework/index.html">
 <meta property="og:site_name" content="LostJeffle">
-<meta property="og:description">
+<meta property="og:description" content="Linux I2C FrameworkLinux kernel: 3.10.67
+I2C Protocol: UM10204 I2C-bus specification and user manual 
+[TOC]
+I2C Bus ProtocolI2C（Inter-Integrated Circuit）是 Philips 推出的适用于近距离低速芯片间通信的主从式的串行总线标准，支持多个主节点和多">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824572061475.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824573157596.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824574567477.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824578840876.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824594242559.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/I2C_data_transfer.png">
+<meta property="og:image" content="http://yoursite.com/images/i2c/I2C_10bit.png">
+<meta property="og:image" content="http://yoursite.com/images/i2c/i2c_hw_topology.png">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824596543903.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824596955160.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14824597244531.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867036827105.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867038239038.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867037352403.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867041597629.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867040117290.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867041338477.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867039275306.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867042412870.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867042641537.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867063624610.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867068559951.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/14867070346714.jpg">
+<meta property="og:image" content="http://yoursite.com/images/i2c/i2c_sw_topology.png">
+<meta property="og:updated_time" content="2017-05-26T04:48:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LostJeffle">
-<meta name="twitter:description">
+<meta name="twitter:title" content="I2C Framework">
+<meta name="twitter:description" content="Linux I2C FrameworkLinux kernel: 3.10.67
+I2C Protocol: UM10204 I2C-bus specification and user manual 
+[TOC]
+I2C Bus ProtocolI2C（Inter-Integrated Circuit）是 Philips 推出的适用于近距离低速芯片间通信的主从式的串行总线标准，支持多个主节点和多">
+<meta name="twitter:image" content="http://yoursite.com/images/i2c/14824572061475.jpg">
 
 
 
@@ -83,7 +118,7 @@
   };
 </script>
 
-  <title> LostJeffle </title>
+  <title> I2C Framework | LostJeffle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -104,9 +139,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -223,9 +256,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -245,10 +278,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/05/26/i2c-framework/" itemprop="url">
-                  I2C Framework
-                </a>
+                I2C Framework
               
             
           </h1>
@@ -287,9 +317,7 @@
       
 
       
-        
-          
-            <h1 id="Linux-I2C-Framework"><a href="#Linux-I2C-Framework" class="headerlink" title="Linux I2C Framework"></a>Linux I2C Framework</h1><p>Linux kernel: 3.10.67</p>
+        <h1 id="Linux-I2C-Framework"><a href="#Linux-I2C-Framework" class="headerlink" title="Linux I2C Framework"></a>Linux I2C Framework</h1><p>Linux kernel: 3.10.67</p>
 <p>I2C Protocol: UM10204 I2C-bus specification and user manual </p>
 <p>[TOC]</p>
 <h2 id="I2C-Bus-Protocol"><a href="#I2C-Bus-Protocol" class="headerlink" title="I2C Bus Protocol"></a>I2C Bus Protocol</h2><p>I2C（Inter-Integrated Circuit）是 Philips 推出的适用于近距离低速芯片间通信的主从式的串行总线标准，支持多个主节点和多个从节点</p>
@@ -1315,403 +1343,53 @@
 <h6 id="i2c-smbus-write-block-data-1"><a href="#i2c-smbus-write-block-data-1" class="headerlink" title="i2c_smbus_write_block_data"></a>i2c_smbus_write_block_data</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> __<span class="function">s32 <span class="title">i2c_smbus_write_block_data</span><span class="params">(<span class="keyword">int</span> file, __u8 command, </span><br><span class="line">                                               __u8 length, __u8 *values)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">union</span> i2c_smbus_data data;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">if</span> (length &gt; <span class="number">32</span>)</span><br><span class="line">		length = <span class="number">32</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= length; i++)</span><br><span class="line">		data.block[i] = values[i<span class="number">-1</span>];</span><br><span class="line">	data.block[<span class="number">0</span>] = length;</span><br><span class="line">	<span class="keyword">return</span> i2c_smbus_access(file,I2C_SMBUS_WRITE,command,</span><br><span class="line">	                        I2C_SMBUS_BLOCK_DATA, &amp;data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h6 id="i2c-smbus-write-i2c-block-data-1"><a href="#i2c-smbus-write-i2c-block-data-1" class="headerlink" title="i2c_smbus_write_i2c_block_data"></a>i2c_smbus_write_i2c_block_data</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> __<span class="function">s32 <span class="title">i2c_smbus_write_i2c_block_data</span><span class="params">(<span class="keyword">int</span> file, __u8 command,</span><br><span class="line">                                               __u8 length, __u8 *values)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">union</span> i2c_smbus_data data;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">if</span> (length &gt; <span class="number">32</span>)</span><br><span class="line">		length = <span class="number">32</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= length; i++)</span><br><span class="line">		data.block[i] = values[i<span class="number">-1</span>];</span><br><span class="line">	data.block[<span class="number">0</span>] = length;</span><br><span class="line">	<span class="keyword">return</span> i2c_smbus_access(file,I2C_SMBUS_WRITE,command,</span><br><span class="line">	                        I2C_SMBUS_I2C_BLOCK_DATA, &amp;data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
 
     <div>
       
+        
+      
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/15/DMA/" itemprop="url">
-                  DMA
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-15T14:45:17+08:00" content="2016-03-15">
-              2016-03-15
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/kernel/" rel="tag">#kernel</a>
           
-            
+            <a href="/tags/bus/" rel="tag">#bus</a>
           
-
-          
-
-          
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h1><p>DMA是一种硬件机制，它允许外围设备和主内存之间直接传输IO数据，而不需要CPU的参与。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/15/DMA/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/15/DMA/" rel="next" title="DMA">
+                <i class="fa fa-chevron-left"></i> DMA
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/14/io-region/" itemprop="url">
-                  IO区域
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-14T21:16:58+08:00" content="2016-03-14">
-              2016-03-14
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="IO区域"><a href="#IO区域" class="headerlink" title="IO区域"></a>IO区域</h1><p>内核通过读写外设的IO寄存器来对外设进行控制。寄存器可以映射到IO端口，处理器通过独立的IO地址空间访问寄存器；或者也可以映射到IO内存，处理器通过内存地址空间访问寄存器。</p>
-<p>Linux中，IO寄存器可以映射到IO空间，也可以映射到内存空间，系统将IO端口和IO内存统称为IO区域（IO region）。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/14/io-region/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/13/make/" itemprop="url">
-                  make工程管理器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-13T13:59:47+08:00" content="2016-03-13">
-              2016-03-13
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="make工程管理器"><a href="#make工程管理器" class="headerlink" title="make工程管理器"></a>make工程管理器</h1><p>make是Linux平台的工程管理器，解释Makefile中的指令，完成工程编译。</p>
-<p>当执行make时，make程序查找当前路径中名为“Makefile”的文件，并根据Makefile中的第一个目标寻找依赖关系，找出这个目标所需要的其他目标。若所需要的目标也依赖其他的目标，make程序嵌套寻找目标的依赖关系。</p>
-<p>make执行时，比较目标（target）和依赖文件（prerequisites）的修改日期，若依赖文件的修改日期比目标的修改日期新或目标不存在，则执行后续定义的命令，从而达到只对修改文件重新编译的目的。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/13/make/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/13/gcc/" itemprop="url">
-                  gcc编译器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-13T12:50:20+08:00" content="2016-03-13">
-              2016-03-13
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="gcc编译器"><a href="#gcc编译器" class="headerlink" title="gcc编译器"></a>gcc编译器</h1><p>gcc（GNU Compiler Collection）是Linux平台的编译器。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/13/gcc/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -1719,6 +1397,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1738,8 +1420,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -1783,6 +1474,23 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-I2C-Framework"><span class="nav-number">1.</span> <span class="nav-text">Linux I2C Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I2C-Bus-Protocol"><span class="nav-number">1.1.</span> <span class="nav-text">I2C Bus Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bus-Specification"><span class="nav-number">1.1.1.</span> <span class="nav-text">Bus Specification</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#信号"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时序"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">时序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件拓扑"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">硬件拓扑</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#形态1"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">形态1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#形态2"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">形态2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Transfer"><span class="nav-number">1.1.2.</span> <span class="nav-text">Data Transfer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Standard-I2C-Protocol"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Standard I2C Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-master-send"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">i2c_master_send</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-master-recv"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">i2c_master_recv</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-transfer"><span class="nav-number">1.1.2.1.3.</span> <span class="nav-text">i2c_transfer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-M-NOSTART"><span class="nav-number">1.1.2.1.4.</span> <span class="nav-text">I2C_M_NOSTART</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-M-IGNORE-NAK"><span class="nav-number">1.1.2.1.5.</span> <span class="nav-text">I2C_M_IGNORE_NAK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-M-REV-DIR-ADDR"><span class="nav-number">1.1.2.1.6.</span> <span class="nav-text">I2C_M_REV_DIR_ADDR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-M-STOP"><span class="nav-number">1.1.2.1.7.</span> <span class="nav-text">I2C_M_STOP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-M-NO-RD-ACK"><span class="nav-number">1.1.2.1.8.</span> <span class="nav-text">I2C_M_NO_RD_ACK</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMBus-Protocol"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">SMBus Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Packet-Error-Checking-PEC"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">Packet Error Checking (PEC)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-QUICK"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">I2C_FUNC_SMBUS_QUICK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-READ-BYTE"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">I2C_FUNC_SMBUS_READ_BYTE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-WRITE-BYTE"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">I2C_FUNC_SMBUS_WRITE_BYTE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-READ-BYTE-DATA"><span class="nav-number">1.1.2.2.5.</span> <span class="nav-text">I2C_FUNC_SMBUS_READ_BYTE_DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-WRITE-BYTE-DATA"><span class="nav-number">1.1.2.2.6.</span> <span class="nav-text">I2C_FUNC_SMBUS_WRITE_BYTE_DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-READ-WORD-DATA"><span class="nav-number">1.1.2.2.7.</span> <span class="nav-text">I2C_FUNC_SMBUS_READ_WORD_DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-WRITE-WORD-DATA"><span class="nav-number">1.1.2.2.8.</span> <span class="nav-text">I2C_FUNC_SMBUS_WRITE_WORD_DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-READ-BLOCK-DATA"><span class="nav-number">1.1.2.2.9.</span> <span class="nav-text">I2C_FUNC_SMBUS_READ_BLOCK_DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-WRITE-BLOCK-DATA"><span class="nav-number">1.1.2.2.10.</span> <span class="nav-text">I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-PROC-CALL"><span class="nav-number">1.1.2.2.11.</span> <span class="nav-text">I2C_FUNC_SMBUS_PROC_CALL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-BLOCK-PROC-CALL"><span class="nav-number">1.1.2.2.12.</span> <span class="nav-text">I2C_FUNC_SMBUS_BLOCK_PROC_CALL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SMBus-Host-Notify"><span class="nav-number">1.1.2.2.13.</span> <span class="nav-text">SMBus Host Notify</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-READ-I2C-BLOCK"><span class="nav-number">1.1.2.2.14.</span> <span class="nav-text">I2C_FUNC_SMBUS_READ_I2C_BLOCK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-FUNC-SMBUS-WRITE-I2C-BLOCK"><span class="nav-number">1.1.2.2.15.</span> <span class="nav-text">I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I2C-Framework"><span class="nav-number">1.2.</span> <span class="nav-text">I2C Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-adapter"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">i2c_adapter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-algorithm"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">i2c_algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-client"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">i2c_client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-driver"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">i2c_driver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-devinfo"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">i2c_devinfo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-board-info"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">i2c_board_info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-device-id"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">i2c_device_id</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-msg"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">i2c_msg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-smbus-data"><span class="nav-number">1.2.1.9.</span> <span class="nav-text">i2c_smbus_data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I2C-framework-init"><span class="nav-number">1.2.2.</span> <span class="nav-text">I2C framework init</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-core-init"><span class="nav-number">1.2.2.0.1.</span> <span class="nav-text">I2C core init</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#board-specific-init"><span class="nav-number">1.2.2.0.2.</span> <span class="nav-text">board-specific init</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-adapter-driver-register"><span class="nav-number">1.2.2.0.3.</span> <span class="nav-text">i2c adapter driver register</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-devinit"><span class="nav-number">1.2.2.0.4.</span> <span class="nav-text">i2c devinit</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">1.2.3.</span> <span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#device-adding"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">device adding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#device-matching"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">device matching</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#register-configuration"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">register configuration</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I2C-core"><span class="nav-number">1.2.4.</span> <span class="nav-text">I2C core</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-bus-operations"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">i2c bus operations</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-bus-type"><span class="nav-number">1.2.4.1.1.</span> <span class="nav-text">i2c_bus_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-device-match"><span class="nav-number">1.2.4.1.2.</span> <span class="nav-text">i2c_device_match</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-device-probe"><span class="nav-number">1.2.4.1.3.</span> <span class="nav-text">i2c_device_probe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-for-each-dev"><span class="nav-number">1.2.4.1.4.</span> <span class="nav-text">i2c_for_each_dev</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-adapter-driver-API"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">i2c adapter driver API</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-add-adapter"><span class="nav-number">1.2.4.2.1.</span> <span class="nav-text">i2c_add_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-add-numbered-adapter"><span class="nav-number">1.2.4.2.2.</span> <span class="nav-text">i2c_add_numbered_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-register-adapter"><span class="nav-number">1.2.4.2.3.</span> <span class="nav-text">i2c_register_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-del-adapter"><span class="nav-number">1.2.4.2.4.</span> <span class="nav-text">i2c_del_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-lock-adapter"><span class="nav-number">1.2.4.2.5.</span> <span class="nav-text">i2c_lock_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-trylock-adapter"><span class="nav-number">1.2.4.2.6.</span> <span class="nav-text">i2c_trylock_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-unlock-adapter"><span class="nav-number">1.2.4.2.7.</span> <span class="nav-text">i2c_unlock_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-set-adapter-bus-clk-rate"><span class="nav-number">1.2.4.2.8.</span> <span class="nav-text">i2c_set_adapter_bus_clk_rate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-get-adapter-bus-clk-rate"><span class="nav-number">1.2.4.2.9.</span> <span class="nav-text">i2c_get_adapter_bus_clk_rate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-shutdown-adapter"><span class="nav-number">1.2.4.2.10.</span> <span class="nav-text">i2c_shutdown_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-shutdown-clear-adapter"><span class="nav-number">1.2.4.2.11.</span> <span class="nav-text">i2c_shutdown_clear_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-get-adapdata"><span class="nav-number">1.2.4.2.12.</span> <span class="nav-text">i2c_get_adapdata</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-set-adapdata"><span class="nav-number">1.2.4.2.13.</span> <span class="nav-text">i2c_set_adapdata</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-parent-is-i2c-adapter"><span class="nav-number">1.2.4.2.14.</span> <span class="nav-text">i2c_parent_is_i2c_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-get-adapter"><span class="nav-number">1.2.4.2.15.</span> <span class="nav-text">i2c_get_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-put-adapter"><span class="nav-number">1.2.4.2.16.</span> <span class="nav-text">i2c_put_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-clients-command"><span class="nav-number">1.2.4.2.17.</span> <span class="nav-text">i2c_clients_command</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-client-driver-API"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">i2c client driver API</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-new-device"><span class="nav-number">1.2.4.3.1.</span> <span class="nav-text">i2c_new_device</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-new-probed-device"><span class="nav-number">1.2.4.3.2.</span> <span class="nav-text">i2c_new_probed_device</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-new-dummy"><span class="nav-number">1.2.4.3.3.</span> <span class="nav-text">i2c_new_dummy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-unregister-device"><span class="nav-number">1.2.4.3.4.</span> <span class="nav-text">i2c_unregister_device</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-verify-client"><span class="nav-number">1.2.4.3.5.</span> <span class="nav-text">i2c_verify_client</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-verify-adapter"><span class="nav-number">1.2.4.3.6.</span> <span class="nav-text">i2c_verify_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-get-clientdata"><span class="nav-number">1.2.4.3.7.</span> <span class="nav-text">i2c_get_clientdata</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-set-clientdata"><span class="nav-number">1.2.4.3.8.</span> <span class="nav-text">i2c_set_clientdata</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-use-client"><span class="nav-number">1.2.4.3.9.</span> <span class="nav-text">i2c_use_client</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-release-client"><span class="nav-number">1.2.4.3.10.</span> <span class="nav-text">i2c_release_client</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-register-driver"><span class="nav-number">1.2.4.3.11.</span> <span class="nav-text">i2c_register_driver</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-add-driver"><span class="nav-number">1.2.4.3.12.</span> <span class="nav-text">i2c_add_driver</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-del-driver"><span class="nav-number">1.2.4.3.13.</span> <span class="nav-text">i2c_del_driver</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2c-board-info-operations"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">i2c board info operations</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-board-list-链表"><span class="nav-number">1.2.4.4.1.</span> <span class="nav-text">__i2c_board_list 链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I2C-BOARD-INFO"><span class="nav-number">1.2.4.4.2.</span> <span class="nav-text">I2C_BOARD_INFO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-register-board-info"><span class="nav-number">1.2.4.4.3.</span> <span class="nav-text">i2c_register_board_info</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#standard-I2C-protocol-data-transfer"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">standard I2C protocol data transfer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-master-send-1"><span class="nav-number">1.2.4.5.1.</span> <span class="nav-text">i2c_master_send</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-master-recv-1"><span class="nav-number">1.2.4.5.2.</span> <span class="nav-text">i2c_master_recv</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-transfer-1"><span class="nav-number">1.2.4.5.3.</span> <span class="nav-text">i2c_transfer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-transfer-2"><span class="nav-number">1.2.4.5.4.</span> <span class="nav-text">__i2c_transfer</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMBus-protocol-data-transfer"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">SMBus protocol data transfer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-xfer"><span class="nav-number">1.2.4.6.1.</span> <span class="nav-text">i2c_smbus_xfer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-probe-func-quick-read"><span class="nav-number">1.2.4.6.2.</span> <span class="nav-text">i2c_probe_func_quick_read</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-read-byte"><span class="nav-number">1.2.4.6.3.</span> <span class="nav-text">i2c_smbus_read_byte</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-write-byte"><span class="nav-number">1.2.4.6.4.</span> <span class="nav-text">i2c_smbus_write_byte</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-read-byte-data"><span class="nav-number">1.2.4.6.5.</span> <span class="nav-text">i2c_smbus_read_byte_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-write-byte-data"><span class="nav-number">1.2.4.6.6.</span> <span class="nav-text">i2c_smbus_write_byte_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-read-word-data"><span class="nav-number">1.2.4.6.7.</span> <span class="nav-text">i2c_smbus_read_word_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-write-word-data"><span class="nav-number">1.2.4.6.8.</span> <span class="nav-text">i2c_smbus_write_word_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-read-word-swapped"><span class="nav-number">1.2.4.6.9.</span> <span class="nav-text">i2c_smbus_read_word_swapped</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-write-word-swapped"><span class="nav-number">1.2.4.6.10.</span> <span class="nav-text">i2c_smbus_write_word_swapped</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-read-block-data"><span class="nav-number">1.2.4.6.11.</span> <span class="nav-text">i2c_smbus_read_block_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-write-block-data"><span class="nav-number">1.2.4.6.12.</span> <span class="nav-text">i2c_smbus_write_block_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-read-i2c-block-data"><span class="nav-number">1.2.4.6.13.</span> <span class="nav-text">i2c_smbus_read_i2c_block_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-write-i2c-block-data"><span class="nav-number">1.2.4.6.14.</span> <span class="nav-text">i2c_smbus_write_i2c_block_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-xfer-emulated"><span class="nav-number">1.2.4.6.15.</span> <span class="nav-text">i2c_smbus_xfer_emulated</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I2C-Sysfs"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">I2C Sysfs</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-adapter-sysfs"><span class="nav-number">1.2.4.7.1.</span> <span class="nav-text">i2c adapter sysfs</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#name"><span class="nav-number">1.2.4.7.1.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#new-device"><span class="nav-number">1.2.4.7.1.2.</span> <span class="nav-text">new_device</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#delete-device"><span class="nav-number">1.2.4.7.1.3.</span> <span class="nav-text">delete_device</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#bus-clk-rate"><span class="nav-number">1.2.4.7.1.4.</span> <span class="nav-text">bus_clk_rate</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-client-sysfs"><span class="nav-number">1.2.4.7.2.</span> <span class="nav-text">i2c client sysfs</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#name-1"><span class="nav-number">1.2.4.7.2.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#modalias"><span class="nav-number">1.2.4.7.2.2.</span> <span class="nav-text">modalias</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I2C-OF-Support"><span class="nav-number">1.2.5.</span> <span class="nav-text">I2C OF Support</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#of-find-i2c-device-by-node"><span class="nav-number">1.2.5.0.1.</span> <span class="nav-text">of_find_i2c_device_by_node</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#of-find-i2c-adapter-by-node"><span class="nav-number">1.2.5.0.2.</span> <span class="nav-text">of_find_i2c_adapter_by_node</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#of-i2c-register-devices"><span class="nav-number">1.2.5.0.3.</span> <span class="nav-text">of_i2c_register_devices</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I2C-Algorithm"><span class="nav-number">1.2.6.</span> <span class="nav-text">I2C Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构-1"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-algo-bit-data"><span class="nav-number">1.2.6.1.1.</span> <span class="nav-text">i2c_algo_bit_data</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Signal-Manipulation"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">Signal Manipulation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SDA-SCL-Manipulation"><span class="nav-number">1.2.6.2.1.</span> <span class="nav-text">SDA/SCL Manipulation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-start"><span class="nav-number">1.2.6.2.2.</span> <span class="nav-text">i2c_start</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-repstart"><span class="nav-number">1.2.6.2.3.</span> <span class="nav-text">i2c_repstart</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-stop"><span class="nav-number">1.2.6.2.4.</span> <span class="nav-text">i2c_stop</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Protocol-Manipulation"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">Protocol Manipulation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-inb"><span class="nav-number">1.2.6.3.1.</span> <span class="nav-text">i2c_inb</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-outb"><span class="nav-number">1.2.6.3.2.</span> <span class="nav-text">i2c_outb</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bit-doAddress"><span class="nav-number">1.2.6.3.3.</span> <span class="nav-text">bit_doAddress</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#readbytes"><span class="nav-number">1.2.6.3.4.</span> <span class="nav-text">readbytes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sendbytes"><span class="nav-number">1.2.6.3.5.</span> <span class="nav-text">sendbytes</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithm-Core"><span class="nav-number">1.2.6.4.</span> <span class="nav-text">Algorithm Core</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-bit-algo"><span class="nav-number">1.2.6.4.1.</span> <span class="nav-text">i2c_bit_algo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bit-func"><span class="nav-number">1.2.6.4.2.</span> <span class="nav-text">bit_func</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bit-xfer"><span class="nav-number">1.2.6.4.3.</span> <span class="nav-text">bit_xfer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-bit-add-bus"><span class="nav-number">1.2.6.4.4.</span> <span class="nav-text">i2c_bit_add_bus</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-bit-add-numbered-bus"><span class="nav-number">1.2.6.4.5.</span> <span class="nav-text">i2c_bit_add_numbered_bus</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I2C-Mux"><span class="nav-number">1.2.7.</span> <span class="nav-text">I2C Mux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构-2"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-mux-priv"><span class="nav-number">1.2.7.1.1.</span> <span class="nav-text">i2c_mux_priv</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I2C-mux-core"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">I2C mux core</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-add-mux-adapter"><span class="nav-number">1.2.7.2.1.</span> <span class="nav-text">i2c_add_mux_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-del-mux-adapter"><span class="nav-number">1.2.7.2.2.</span> <span class="nav-text">i2c_del_mux_adapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-mux-functionality"><span class="nav-number">1.2.7.2.3.</span> <span class="nav-text">i2c_mux_functionality</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-mux-master-xfer"><span class="nav-number">1.2.7.2.4.</span> <span class="nav-text">i2c_mux_master_xfer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-mux-smbus-xfer"><span class="nav-number">1.2.7.2.5.</span> <span class="nav-text">i2c_mux_smbus_xfer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i2cdev"><span class="nav-number">1.2.8.</span> <span class="nav-text">i2cdev</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构-3"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-dev"><span class="nav-number">1.2.8.1.1.</span> <span class="nav-text">i2c_dev</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-rdwr-ioctl-data"><span class="nav-number">1.2.8.1.2.</span> <span class="nav-text">i2c_rdwr_ioctl_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-smbus-ioctl-data"><span class="nav-number">1.2.8.1.3.</span> <span class="nav-text">i2c_smbus_ioctl_data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#device-number"><span class="nav-number">1.2.8.1.4.</span> <span class="nav-text">device number</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-dev-list-链表"><span class="nav-number">1.2.8.1.5.</span> <span class="nav-text">i2c_dev_list 链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-dev-class"><span class="nav-number">1.2.8.1.6.</span> <span class="nav-text">i2c_dev_class</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2cdev-core-init"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">i2cdev core init</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2c-dev-init"><span class="nav-number">1.2.8.2.1.</span> <span class="nav-text">i2c_dev_init</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-notifier"><span class="nav-number">1.2.8.2.2.</span> <span class="nav-text">i2cdev_notifier</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i2cdev-core"><span class="nav-number">1.2.8.3.</span> <span class="nav-text">i2cdev core</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-fops"><span class="nav-number">1.2.8.3.1.</span> <span class="nav-text">i2cdev_fops</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-open"><span class="nav-number">1.2.8.3.2.</span> <span class="nav-text">i2cdev_open</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-read"><span class="nav-number">1.2.8.3.3.</span> <span class="nav-text">i2cdev_read</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-write"><span class="nav-number">1.2.8.3.4.</span> <span class="nav-text">i2cdev_write</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-ioctl"><span class="nav-number">1.2.8.3.5.</span> <span class="nav-text">i2cdev_ioctl</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-ioctl-rdrw"><span class="nav-number">1.2.8.3.6.</span> <span class="nav-text">i2cdev_ioctl_rdrw</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-ioctl-smbus"><span class="nav-number">1.2.8.3.7.</span> <span class="nav-text">i2cdev_ioctl_smbus</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i2cdev-SMBus-userspace-interface"><span class="nav-number">1.2.8.3.8.</span> <span class="nav-text">i2cdev SMBus userspace interface</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-access"><span class="nav-number">1.2.8.3.8.1.</span> <span class="nav-text">i2c_smbus_access</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-write-quick"><span class="nav-number">1.2.8.3.8.2.</span> <span class="nav-text">i2c_smbus_write_quick</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-read-byte-1"><span class="nav-number">1.2.8.3.8.3.</span> <span class="nav-text">i2c_smbus_read_byte</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-write-byte-1"><span class="nav-number">1.2.8.3.8.4.</span> <span class="nav-text">i2c_smbus_write_byte</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-read-byte-data-1"><span class="nav-number">1.2.8.3.8.5.</span> <span class="nav-text">i2c_smbus_read_byte_data</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-write-byte-data-1"><span class="nav-number">1.2.8.3.8.6.</span> <span class="nav-text">i2c_smbus_write_byte_data</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-read-word-data-1"><span class="nav-number">1.2.8.3.8.7.</span> <span class="nav-text">i2c_smbus_read_word_data</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-write-word-data-1"><span class="nav-number">1.2.8.3.8.8.</span> <span class="nav-text">i2c_smbus_write_word_data</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-process-call"><span class="nav-number">1.2.8.3.8.9.</span> <span class="nav-text">i2c_smbus_process_call</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-read-block-data-1"><span class="nav-number">1.2.8.3.8.10.</span> <span class="nav-text">i2c_smbus_read_block_data</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-write-block-data-1"><span class="nav-number">1.2.8.3.8.11.</span> <span class="nav-text">i2c_smbus_write_block_data</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#i2c-smbus-write-i2c-block-data-1"><span class="nav-number">1.2.8.3.8.12.</span> <span class="nav-text">i2c_smbus_write_i2c_block_data</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
       
 
     </div>
@@ -1867,6 +1575,167 @@
   
 
   
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
 
   
 
