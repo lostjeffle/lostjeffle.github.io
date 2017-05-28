@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lostjeffle.github.io/2017/05/28/list/</loc>
+    
+    <lastmod>2017-05-28T01:58:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lostjeffle.github.io/2017/05/26/i2c-framework/</loc>
     
     <lastmod>2017-05-26T07:57:07.000Z</lastmod>

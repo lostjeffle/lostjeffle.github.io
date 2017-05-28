@@ -1,0 +1,1022 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kernel,DS,list," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="内核数据结构 通用链表 listLinux kernel: 3.10.67
+Linux内核使用一种双向循环链表 list_head 作为通用链表
+include/linux/types.h中定义 list_head 的数据结构，include/linux/list.h中定义 list_head 的操作函数，其全部实现为inline函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="list">
+<meta property="og:url" content="http://lostjeffle.github.io/2017/05/28/list/index.html">
+<meta property="og:site_name" content="LostJeffle">
+<meta property="og:description" content="内核数据结构 通用链表 listLinux kernel: 3.10.67
+Linux内核使用一种双向循环链表 list_head 作为通用链表
+include/linux/types.h中定义 list_head 的数据结构，include/linux/list.h中定义 list_head 的操作函数，其全部实现为inline函数">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_kernel_double_linked_list.jpg">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head-list_replace.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head-replace_init.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head-rotate_left.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head-cut_position.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head_splice.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head_splice_head.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head_splice_tail.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head_splice_head_init.png">
+<meta property="og:image" content="http://lostjeffle.github.io/images/list/linux_list_head_splice_tail_init.png">
+<meta property="og:updated_time" content="2017-05-28T01:58:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="list">
+<meta name="twitter:description" content="内核数据结构 通用链表 listLinux kernel: 3.10.67
+Linux内核使用一种双向循环链表 list_head 作为通用链表
+include/linux/types.h中定义 list_head 的数据结构，include/linux/list.h中定义 list_head 的操作函数，其全部实现为inline函数">
+<meta name="twitter:image" content="http://lostjeffle.github.io/images/list/linux_kernel_double_linked_list.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> list | LostJeffle </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LostJeffle</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'kd8Li3UqssgpyxA9GSfy','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                list
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-28T09:54:35+08:00" content="2017-05-28">
+              2017-05-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/28/list/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/28/list/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/28/list/" class="leancloud_visitors" data-flag-title="list">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="内核数据结构-通用链表-list"><a href="#内核数据结构-通用链表-list" class="headerlink" title="内核数据结构 通用链表 list"></a>内核数据结构 通用链表 list</h2><p>Linux kernel: 3.10.67</p>
+<p>Linux内核使用一种双向循环链表 list_head 作为通用链表</p>
+<p><code>include/linux/types.h</code>中定义 list_head 的数据结构，<br><code>include/linux/list.h</code>中定义 list_head 的操作函数，其全部实现为inline函数</p>
+<a id="more"></a>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> list_head &#123;</span><br><span class="line">	<span class="keyword">struct</span> list_head *next, *prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>链表的表头和节点均用 list_head 结构表示，<br>list_head 结构包含两个list_head指针，分别指向链表的前一节点和后一节点</p>
+<p>空链表只包含一个表头，其prev、next指针均指向表头自身；<br>表头的next指针指向链表的头节点，prev指针指向链表的尾节点；<br>头节点的prev指针指向表头，尾节点的next指针指向表头</p>
+<p><img src="/images/list/linux_kernel_double_linked_list.jpg" alt="linux_kernel_double_linked_list-c500"></p>
+<h3 id="操作函数"><a href="#操作函数" class="headerlink" title="操作函数"></a>操作函数</h3><h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><h5 id="LIST-HEAD"><a href="#LIST-HEAD" class="headerlink" title="LIST_HEAD"></a>LIST_HEAD</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_HEAD(name) \</span><br><span class="line">	struct list_head name = LIST_HEAD_INIT(name)</span></span><br></pre></td></tr></table></figure>
+<p>静态声明并初始化链表头/链表节点</p>
+<h5 id="LIST-HEAD-INIT-INIT-LIST-HEAD"><a href="#LIST-HEAD-INIT-INIT-LIST-HEAD" class="headerlink" title="LIST_HEAD_INIT/INIT_LIST_HEAD"></a>LIST_HEAD_INIT/INIT_LIST_HEAD</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_HEAD_INIT(name) &#123; &amp;(name), &amp;(name) &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">INIT_LIST_HEAD</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">list</span>-&gt;next = <span class="built_in">list</span>;</span><br><span class="line">	<span class="built_in">list</span>-&gt;prev = <span class="built_in">list</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>动态初始化链表头/链表节点，刚刚初始化的链表头/链表节点的prev、next指针均指向链表头/链表节点自身</p>
+<h4 id="add"><a href="#add" class="headerlink" title="add"></a>add</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_add(<span class="keyword">struct</span> list_head *<span class="keyword">new</span>,</span><br><span class="line">			      <span class="keyword">struct</span> list_head *prev,</span><br><span class="line">			      <span class="keyword">struct</span> list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">	next-&gt;prev = <span class="keyword">new</span>;</span><br><span class="line">	<span class="keyword">new</span>-&gt;next = next;</span><br><span class="line">	<span class="keyword">new</span>-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = <span class="keyword">new</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在prev、next节点之间添加new节点</p>
+<h5 id="list-add"><a href="#list-add" class="headerlink" title="list_add"></a>list_add</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_add</span><span class="params">(<span class="keyword">struct</span> list_head *new, <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__list_add(<span class="keyword">new</span>, head, head-&gt;next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在head链表的头部添加new节点（在head节点之后添加new节点）</p>
+<h5 id="list-add-tail"><a href="#list-add-tail" class="headerlink" title="list_add_tail"></a>list_add_tail</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_add_tail</span><span class="params">(<span class="keyword">struct</span> list_head *new, <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__list_add(<span class="keyword">new</span>, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在head链表的尾部添加new节点（在head节点之前添加new节点）</p>
+<h4 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_del(<span class="keyword">struct</span> list_head * prev, <span class="keyword">struct</span> list_head * next)</span><br><span class="line">&#123;</span><br><span class="line">	next-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除prev、next链表节点之间的节点</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_del_entry(<span class="keyword">struct</span> list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	__list_del(entry-&gt;prev, entry-&gt;next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除entry链表节点</p>
+<h5 id="list-del"><a href="#list-del" class="headerlink" title="list_del"></a>list_del</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_del</span><span class="params">(<span class="keyword">struct</span> list_head *entry)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__list_del(entry-&gt;prev, entry-&gt;next);</span><br><span class="line">	entry-&gt;next = LIST_POISON1;</span><br><span class="line">	entry-&gt;prev = LIST_POISON2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除entry链表节点，并设置entry的prev、next指针的值为LIST_POISON1、LIST_POISON2</p>
+<p><code>include/linux/poison.h</code>中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_ILLEGAL_POINTER_VALUE</span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> POISON_POINTER_DELTA _AC(CONFIG_ILLEGAL_POINTER_VALUE, UL)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> POISON_POINTER_DELTA 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * These are non-NULL pointers that will result in page faults</span><br><span class="line"> * under normal circumstances, used to verify that nobody uses</span><br><span class="line"> * non-initialized list entries.</span><br><span class="line"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_POISON1  ((void *) 0x00100100 + POISON_POINTER_DELTA)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_POISON2  ((void *) 0x00200200 + POISON_POINTER_DELTA)</span></span><br></pre></td></tr></table></figure>
+<p>list corruption 包括以下几种情形</p>
+<ol>
+<li>声明 list_head 类型的变量但未对其初始化，因而其prev、next指针的值为0（即NULL，static storage duration）或不确定（automatic storage duration）</li>
+<li>使用bad pointer为prev、next指针赋值，从而导致prev、next指针的值为NULL</li>
+<li>调用list_del()删除该链表节点，未对该链表节点重新初始化时再次引用该节点，此时prev、next指针的值为LIST_POISON1、LIST_POISON2，这种链表节点称为use-after-free</li>
+</ol>
+<p>LIST_POISON1、LIST_POISON2实际为特殊的内存地址，主要用于调试，使用LIST_POISON1、LIST_POISON2的目的是 more easily detect different classes of list corruption，即将上述的错误3与其他错误区分开来，从而便于调试</p>
+<h5 id="list-del-init"><a href="#list-del-init" class="headerlink" title="list_del_init"></a>list_del_init</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_del_init</span><span class="params">(<span class="keyword">struct</span> list_head *entry)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__list_del_entry(entry);</span><br><span class="line">	INIT_LIST_HEAD(entry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除entry链表节点，并初始化该链表节点，即将该链表节点的prev、next指针指向自身</p>
+<h4 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h4><h5 id="list-replace"><a href="#list-replace" class="headerlink" title="list_replace"></a>list_replace</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_replace</span><span class="params">(<span class="keyword">struct</span> list_head *old, <span class="keyword">struct</span> list_head *new)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">new</span>-&gt;next = old-&gt;next;</span><br><span class="line">	<span class="keyword">new</span>-&gt;next-&gt;prev = <span class="keyword">new</span>;</span><br><span class="line">	<span class="keyword">new</span>-&gt;prev = old-&gt;prev;</span><br><span class="line">	<span class="keyword">new</span>-&gt;prev-&gt;next = <span class="keyword">new</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以new节点替换old节点</p>
+<p><img src="/images/list/linux_list_head-list_replace.png" alt="linux_list_head-list_replace-c600"></p>
+<h5 id="list-replace-init"><a href="#list-replace-init" class="headerlink" title="list_replace_init"></a>list_replace_init</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_replace_init</span><span class="params">(<span class="keyword">struct</span> list_head *old,</span><br><span class="line">					<span class="keyword">struct</span> list_head *new)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	list_replace(old, <span class="keyword">new</span>);</span><br><span class="line">	INIT_LIST_HEAD(old);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以new节点替换old节点，并初始化old节点</p>
+<p><img src="/images/list/linux_list_head-replace_init.png" alt="linux_list_head-replace_init-c600"></p>
+<h4 id="move"><a href="#move" class="headerlink" title="move"></a>move</h4><h5 id="list-move"><a href="#list-move" class="headerlink" title="list_move"></a>list_move</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_move</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>, <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__list_del_entry(<span class="built_in">list</span>);</span><br><span class="line">	list_add(<span class="built_in">list</span>, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表节点从原链表中移除，并添加到新链表head的头部</p>
+<h5 id="list-move-tail"><a href="#list-move-tail" class="headerlink" title="list_move_tail"></a>list_move_tail</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_move_tail</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>, <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__list_del_entry(<span class="built_in">list</span>);</span><br><span class="line">	list_add_tail(<span class="built_in">list</span>, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表节点从原链表中移除，并添加到新链表head的尾部</p>
+<h5 id="list-rotate-left"><a href="#list-rotate-left" class="headerlink" title="list_rotate_left"></a>list_rotate_left</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_rotate_left</span><span class="params">(<span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">struct</span> list_head *first;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!list_empty(head)) &#123;</span><br><span class="line">		first = head-&gt;next;</span><br><span class="line">		list_move_tail(first, head);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将head链表的头节点移到链表的尾部</p>
+<p><img src="/images/list/linux_list_head-rotate_left.png" alt="linux_list_head-rotate_left-c600"></p>
+<h4 id="judge"><a href="#judge" class="headerlink" title="judge"></a>judge</h4><h5 id="list-is-last"><a href="#list-is-last" class="headerlink" title="list_is_last"></a>list_is_last</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">list_is_last</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">list</span>-&gt;next == head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>判断list节点是否为链表的尾节点，其中head是该链表的表头</p>
+<h5 id="list-empty"><a href="#list-empty" class="headerlink" title="list_empty"></a>list_empty</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">list_empty</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> head-&gt;next == head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>判断head链表是否为空链表，即链表只包含一个表头</p>
+<h5 id="list-empty-careful"><a href="#list-empty-careful" class="headerlink" title="list_empty_careful"></a>list_empty_careful</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">list_empty_careful</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">struct</span> list_head *next = head-&gt;next;</span><br><span class="line">	<span class="keyword">return</span> (next == head) &amp;&amp; (next == head-&gt;prev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>判断链表head是否为空链表，同时当前没有其他CPU修改该链表节点的prev、next成员</p>
+<h5 id="list-is-singular"><a href="#list-is-singular" class="headerlink" title="list_is_singular"></a>list_is_singular</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">list_is_singular</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> !list_empty(head) &amp;&amp; (head-&gt;next == head-&gt;prev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>判断head链表中除了链表头，是否只有一个节点</p>
+<h4 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_cut_position(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">		<span class="keyword">struct</span> list_head *head, <span class="keyword">struct</span> list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">struct</span> list_head *new_first = entry-&gt;next;</span><br><span class="line">	<span class="built_in">list</span>-&gt;next = head-&gt;next;</span><br><span class="line">	<span class="built_in">list</span>-&gt;next-&gt;prev = <span class="built_in">list</span>;</span><br><span class="line">	<span class="built_in">list</span>-&gt;prev = entry;</span><br><span class="line">	entry-&gt;next = <span class="built_in">list</span>;</span><br><span class="line">	head-&gt;next = new_first;</span><br><span class="line">	new_first-&gt;prev = head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将head链表中从head至entry的一段链表节点（不包括head，但包括entry）剪切出来，并添加到list链表的头部</p>
+<p><img src="/images/list/linux_list_head-cut_position.png" alt="linux_list_head-cut_position"></p>
+<h5 id="list-cut-position"><a href="#list-cut-position" class="headerlink" title="list_cut_position"></a>list_cut_position</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_cut_position</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">		<span class="keyword">struct</span> list_head *head, <span class="keyword">struct</span> list_head *entry)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (list_empty(head))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (list_is_singular(head) &amp;&amp;</span><br><span class="line">		(head-&gt;next != entry &amp;&amp; head != entry))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (entry == head)</span><br><span class="line">		INIT_LIST_HEAD(<span class="built_in">list</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		__list_cut_position(<span class="built_in">list</span>, head, entry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将head链表中从head至entry的一段链表节点剪切出来，并添加到list链表的头部，同时对参数的有效性进行检查</p>
+<ul>
+<li>若head链表为空，则直接返回</li>
+<li>若head链表只有一个链表节点，同时该节点不为entry，即entry节点不在head链表中，则函数直接返回</li>
+<li>若链表头head与链表节点entry相等，则直接初始化list链表，此时会丢失list链表中的信息</li>
+</ul>
+<h4 id="splice"><a href="#splice" class="headerlink" title="splice"></a>splice</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __list_splice(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">				 <span class="keyword">struct</span> list_head *prev,</span><br><span class="line">				 <span class="keyword">struct</span> list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">struct</span> list_head *first = <span class="built_in">list</span>-&gt;next;</span><br><span class="line">	<span class="keyword">struct</span> list_head *last = <span class="built_in">list</span>-&gt;prev;</span><br><span class="line"></span><br><span class="line">	first-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = first;</span><br><span class="line"></span><br><span class="line">	last-&gt;next = next;</span><br><span class="line">	next-&gt;prev = last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表（不包括list链表头）添加到prev、next链表节点之间</p>
+<p><img src="/images/list/linux_list_head_splice.png" alt="linux_list_head_splice-c"></p>
+<h5 id="list-splice"><a href="#list-splice" class="headerlink" title="list_splice"></a>list_splice</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_splice</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">				<span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!list_empty(<span class="built_in">list</span>))</span><br><span class="line">		__list_splice(<span class="built_in">list</span>, head, head-&gt;next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表（不包括list链表头）添加到head链表的头部</p>
+<p><img src="/images/list/linux_list_head_splice_head.png" alt="linux_list_head_splice_head-c"></p>
+<h5 id="list-splice-tail"><a href="#list-splice-tail" class="headerlink" title="list_splice_tail"></a>list_splice_tail</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_splice_tail</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">				<span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!list_empty(<span class="built_in">list</span>))</span><br><span class="line">		__list_splice(<span class="built_in">list</span>, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表（不包括list链表头）添加到head链表的尾部</p>
+<p><img src="/images/list/linux_list_head_splice_tail.png" alt="linux_list_head_splice_tai-c"></p>
+<h5 id="list-splice-init"><a href="#list-splice-init" class="headerlink" title="list_splice_init"></a>list_splice_init</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_splice_init</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">				    <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!list_empty(<span class="built_in">list</span>)) &#123;</span><br><span class="line">		__list_splice(<span class="built_in">list</span>, head, head-&gt;next);</span><br><span class="line">		INIT_LIST_HEAD(<span class="built_in">list</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表（不包括list链表头）添加到head链表的头部，同时初始化list链表头</p>
+<p><img src="/images/list/linux_list_head_splice_head_init.png" alt="linux_list_head_splice_head_init-c"></p>
+<h5 id="list-splice-tail-init"><a href="#list-splice-tail-init" class="headerlink" title="list_splice_tail_init"></a>list_splice_tail_init</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_splice_tail_init</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>,</span><br><span class="line">					 <span class="keyword">struct</span> list_head *head)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!list_empty(<span class="built_in">list</span>)) &#123;</span><br><span class="line">		__list_splice(<span class="built_in">list</span>, head-&gt;prev, head);</span><br><span class="line">		INIT_LIST_HEAD(<span class="built_in">list</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将list链表（不包括list链表头）添加到head链表的尾部，同时初始化list链表头</p>
+<p><img src="/images/list/linux_list_head_splice_tail_init.png" alt="linux_list_head_splice_tail_init-c"></p>
+<h4 id="get-the-entry"><a href="#get-the-entry" class="headerlink" title="get the entry"></a>get the entry</h4><p>head_list结构内嵌入type数据结构，约定该数据结构称为数据节点，该数据结构组成的链表称为数据链表</p>
+<h5 id="list-entry"><a href="#list-entry" class="headerlink" title="list_entry"></a>list_entry</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_entry(ptr, type, member) \</span><br><span class="line">	container_of(ptr, type, member)</span></span><br></pre></td></tr></table></figure>
+<p>head_list结构内嵌入type结构，当已知head_list的地址时，获取包含该head_list的数据节点的地址</p>
+<p>@ptr        该head_list的地址<br>@member     type数据结构中该head_list成员的名称<br>@type        该head_list所在的数据结构</p>
+<h5 id="list-first-entry"><a href="#list-first-entry" class="headerlink" title="list_first_entry"></a>list_first_entry</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_first_entry(ptr, type, member) \</span><br><span class="line">	list_entry((ptr)-&gt;next, type, member)</span></span><br></pre></td></tr></table></figure>
+<p>返回包含ptr链表的头节点的type类型的数据节点，list_head在该数据结构中的成员名称为member</p>
+<h5 id="list-first-entry-or-null"><a href="#list-first-entry-or-null" class="headerlink" title="list_first_entry_or_null"></a>list_first_entry_or_null</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_first_entry_or_null(ptr, type, member) \</span><br><span class="line">	(!list_empty(ptr) ? list_first_entry(ptr, type, member) : NULL)</span></span><br></pre></td></tr></table></figure>
+<p>ptr链表非空时，返回包含ptr链表的头节点的type类型的数据节点，list_head在该数据结构中的成员名称为member；否则返回NULL</p>
+<h5 id="list-next-entry"><a href="#list-next-entry" class="headerlink" title="list_next_entry"></a>list_next_entry</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_next_entry(pos, member) \</span><br><span class="line">	list_entry((pos)-&gt;member.next, typeof(*(pos)), member)</span></span><br></pre></td></tr></table></figure>
+<p>返回包含ptr链表节点的下一个链表节点的数据节点，list_head在该数据结构中的成员名称为member</p>
+<h5 id="list-prev-entry"><a href="#list-prev-entry" class="headerlink" title="list_prev_entry"></a>list_prev_entry</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_prev_entry(pos, member) \</span><br><span class="line">	list_entry((pos)-&gt;member.prev, typeof(*(pos)), member)</span></span><br></pre></td></tr></table></figure>
+<p>返回包含ptr链表节点的上一个链表节点的数据节点，list_head在该数据结构中的成员名称为member</p>
+<h5 id="list-safe-reset-next"><a href="#list-safe-reset-next" class="headerlink" title="list_safe_reset_next"></a>list_safe_reset_next</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_safe_reset_next(pos, n, member) \</span><br><span class="line">	n = list_entry(pos-&gt;member.next, typeof(*pos), member)</span></span><br></pre></td></tr></table></figure>
+<p>返回pos数据节点的下一节点，并保存在n中，list_head在该数据结构中的成员名称为member</p>
+<h4 id="iterate-the-list"><a href="#iterate-the-list" class="headerlink" title="iterate the list"></a>iterate the list</h4><h5 id="list-for-each"><a href="#list-for-each" class="headerlink" title="list_for_each"></a>list_for_each</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each(pos, head) \</span><br><span class="line">	for (pos = (head)-&gt;next; pos != (head); pos = pos-&gt;next)</span></span><br></pre></td></tr></table></figure>
+<p>顺序遍历链表head，pos用来存储当前的链表节点</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __list_for_each(pos, head) \</span><br><span class="line">	for (pos = (head)-&gt;next; pos != (head); pos = pos-&gt;next)</span></span><br></pre></td></tr></table></figure>
+<p>顺序遍历链表head，pos用来存储当前的链表节点，与list_for_each()完全相同</p>
+<h5 id="list-for-each-prev"><a href="#list-for-each-prev" class="headerlink" title="list_for_each_prev"></a>list_for_each_prev</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_prev(pos, head) \</span><br><span class="line">	for (pos = (head)-&gt;prev; pos != (head); pos = pos-&gt;prev)</span></span><br></pre></td></tr></table></figure>
+<p>逆序遍历链表head，pos用来存储当前的链表节点</p>
+<h5 id="list-for-each-safe"><a href="#list-for-each-safe" class="headerlink" title="list_for_each_safe"></a>list_for_each_safe</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_safe(pos, n, head) \</span><br><span class="line">	for (pos = (head)-&gt;next, n = pos-&gt;next; pos != (head); \</span><br><span class="line">		pos = n, n = pos-&gt;next)</span></span><br></pre></td></tr></table></figure>
+<p>顺序遍历链表head</p>
+<p>@pos    存储当前的链表节点<br>@n      备份当前链表节点的下一个节点，因而该函数在当前链表节点被移除时也能正常遍历整个链表</p>
+<h5 id="list-for-each-prev-safe"><a href="#list-for-each-prev-safe" class="headerlink" title="list_for_each_prev_safe"></a>list_for_each_prev_safe</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_prev_safe(pos, n, head) \</span><br><span class="line">	for (pos = (head)-&gt;prev, n = pos-&gt;prev; \</span><br><span class="line">	     pos != (head); \</span><br><span class="line">	     pos = n, n = pos-&gt;prev)</span></span><br></pre></td></tr></table></figure>
+<p>逆序遍历链表head</p>
+<p>@pos    存储当前的链表节点<br>@n      备份当前链表节点的上一个节点，因而该函数在当前链表节点被移除时也能正常遍历整个链表</p>
+<h4 id="iterate-the-entry"><a href="#iterate-the-entry" class="headerlink" title="iterate the entry"></a>iterate the entry</h4><h5 id="list-for-each-entry"><a href="#list-for-each-entry" class="headerlink" title="list_for_each_entry"></a>list_for_each_entry</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry(pos, head, member) \</span><br><span class="line">	for (pos = list_entry((head)-&gt;next, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = list_entry(pos-&gt;member.next, typeof(*pos), member))</span></span><br></pre></td></tr></table></figure>
+<p>由链表头开始顺序遍历数据链表</p>
+<p>@pos        存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称</p>
+<h5 id="list-for-each-entry-reverse"><a href="#list-for-each-entry-reverse" class="headerlink" title="list_for_each_entry_reverse"></a>list_for_each_entry_reverse</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_reverse(pos, head, member) \</span><br><span class="line">	for (pos = list_entry((head)-&gt;prev, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = list_entry(pos-&gt;member.prev, typeof(*pos), member))</span></span><br></pre></td></tr></table></figure>
+<p>由链表头开始逆序遍历数据链表</p>
+<p>@pos        存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称</p>
+<h5 id="list-prepare-entry"><a href="#list-prepare-entry" class="headerlink" title="list_prepare_entry"></a>list_prepare_entry</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_prepare_entry(pos, head, member) \</span><br><span class="line">	((pos) ? : list_entry(head, typeof(*pos), member))</span></span><br></pre></td></tr></table></figure>
+<p>用于准备list_for_each_entry_continue()中的pos指针</p>
+<p>pos为开始遍历的数据节点，若pos存在定义，则直接返回pos；否则返回包含head链表头的数据节点，即此时遍历实际由链表头开始</p>
+<h5 id="list-for-each-entry-continue"><a href="#list-for-each-entry-continue" class="headerlink" title="list_for_each_entry_continue"></a>list_for_each_entry_continue</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_continue(pos, head, member) \</span><br><span class="line">	for (pos = list_entry(pos-&gt;member.next, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = list_entry(pos-&gt;member.next, typeof(*pos), member))</span></span><br></pre></td></tr></table></figure>
+<p>由特定数据节点pos之后开始顺序遍历数据链表，即实际由pos数据节点的下一节点开始遍历</p>
+<p>@pos        由特定数据节点pos之后开始遍历数据链表，同时pos用于存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称</p>
+<h5 id="list-for-each-entry-continue-reverse"><a href="#list-for-each-entry-continue-reverse" class="headerlink" title="list_for_each_entry_continue_reverse"></a>list_for_each_entry_continue_reverse</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_continue_reverse(pos, head, member) \</span><br><span class="line">	for (pos = list_entry(pos-&gt;member.prev, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = list_entry(pos-&gt;member.prev, typeof(*pos), member))</span></span><br></pre></td></tr></table></figure>
+<p>由特定数据节点pos之前开始逆序遍历数据链表，即实际由pos数据节点的上一节点开始遍历</p>
+<p>@pos        由特定数据节点pos之前开始遍历数据链表,同时pos用于存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称</p>
+<h5 id="list-for-each-entry-from"><a href="#list-for-each-entry-from" class="headerlink" title="list_for_each_entry_from"></a>list_for_each_entry_from</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_from(pos, head, member) \</span><br><span class="line">	for (; &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = list_entry(pos-&gt;member.next, typeof(*pos), member))</span></span><br></pre></td></tr></table></figure>
+<p>由特定数据节点pos开始顺序遍历数据链表</p>
+<p>@pos        由特定数据节点pos开始遍历数据链表，同时pos用于存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称</p>
+<h5 id="list-for-each-entry-safe"><a href="#list-for-each-entry-safe" class="headerlink" title="list_for_each_entry_safe"></a>list_for_each_entry_safe</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_safe(pos, n, head, member) \</span><br><span class="line">	for (pos = list_entry((head)-&gt;next, typeof(*pos), member), \</span><br><span class="line">		n = list_entry(pos-&gt;member.next, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = n, n = list_entry(n-&gt;member.next, typeof(*n), member))</span></span><br></pre></td></tr></table></figure>
+<p>由链表头开始顺序遍历数据链表</p>
+<p>@pos        存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称<br>@n          备份当前数据节点的下一节点</p>
+<h5 id="list-for-each-entry-safe-continue"><a href="#list-for-each-entry-safe-continue" class="headerlink" title="list_for_each_entry_safe_continue"></a>list_for_each_entry_safe_continue</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_safe_continue(pos, n, head, member) \</span><br><span class="line">	for (pos = list_entry(pos-&gt;member.next, typeof(*pos), member), \</span><br><span class="line">		n = list_entry(pos-&gt;member.next, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = n, n = list_entry(n-&gt;member.next, typeof(*n), member))</span></span><br></pre></td></tr></table></figure>
+<p>由特定数据节点pos之后开始顺序遍历数据链表，即实际由pos数据节点的下一节点开始遍历</p>
+<p>@pos        由特定数据节点pos之后开始遍历数据链表，同时pos用于存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称<br>@n          备份当前数据节点的下一个数据节点</p>
+<h5 id="list-for-each-entry-safe-from"><a href="#list-for-each-entry-safe-from" class="headerlink" title="list_for_each_entry_safe_from"></a>list_for_each_entry_safe_from</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_safe_from(pos, n, head, member) \</span><br><span class="line">	for (n = list_entry(pos-&gt;member.next, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = n, n = list_entry(n-&gt;member.next, typeof(*n), member))</span></span><br></pre></td></tr></table></figure>
+<p>由特定数据节点pos开始顺序遍历数据链表<br>@pos        由特定数据节点pos开始遍历数据链表，同时pos用于存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称<br>@n          备份当前数据节点的下一个数据节点</p>
+<h5 id="list-for-each-entry-safe-reverse"><a href="#list-for-each-entry-safe-reverse" class="headerlink" title="list_for_each_entry_safe_reverse"></a>list_for_each_entry_safe_reverse</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_safe_reverse(pos, n, head, member) \</span><br><span class="line">	for (pos = list_entry((head)-&gt;prev, typeof(*pos), member), \</span><br><span class="line">		n = list_entry(pos-&gt;member.prev, typeof(*pos), member); \</span><br><span class="line">	     &amp;pos-&gt;member != (head); \</span><br><span class="line">	     pos = n, n = list_entry(n-&gt;member.prev, typeof(*n), member))</span></span><br></pre></td></tr></table></figure>
+<p>由特定数据节点pos之前开始逆序遍历数据链表，即实际由pos数据节点的上一节点开始遍历</p>
+<p>@pos        由特定数据节点pos之前开始遍历数据链表 ，同时pos用于存储当前的数据节点<br>@head       链表头<br>@member     list_head在该数据结构中的名称<br>@n          备份当前数据节点的下一个数据节点</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kernel/" rel="tag">#kernel</a>
+          
+            <a href="/tags/DS/" rel="tag">#DS</a>
+          
+            <a href="/tags/list/" rel="tag">#list</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/i2c-framework/" rel="next" title="I2C Framework">
+                <i class="fa fa-chevron-left"></i> I2C Framework
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Jeffle" />
+          <p class="site-author-name" itemprop="name">Jeffle</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核数据结构-通用链表-list"><span class="nav-number">1.</span> <span class="nav-text">内核数据结构 通用链表 list</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作函数"><span class="nav-number">1.2.</span> <span class="nav-text">操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#init"><span class="nav-number">1.2.1.</span> <span class="nav-text">init</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LIST-HEAD"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">LIST_HEAD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LIST-HEAD-INIT-INIT-LIST-HEAD"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">LIST_HEAD_INIT/INIT_LIST_HEAD</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add"><span class="nav-number">1.2.2.</span> <span class="nav-text">add</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-add"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">list_add</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-add-tail"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">list_add_tail</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete"><span class="nav-number">1.2.3.</span> <span class="nav-text">delete</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-del"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">list_del</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-del-init"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">list_del_init</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#replace"><span class="nav-number">1.2.4.</span> <span class="nav-text">replace</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-replace"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">list_replace</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-replace-init"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">list_replace_init</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#move"><span class="nav-number">1.2.5.</span> <span class="nav-text">move</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-move"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">list_move</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-move-tail"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">list_move_tail</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-rotate-left"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">list_rotate_left</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#judge"><span class="nav-number">1.2.6.</span> <span class="nav-text">judge</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-is-last"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">list_is_last</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-empty"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">list_empty</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-empty-careful"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">list_empty_careful</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-is-singular"><span class="nav-number">1.2.6.4.</span> <span class="nav-text">list_is_singular</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cut"><span class="nav-number">1.2.7.</span> <span class="nav-text">cut</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-cut-position"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">list_cut_position</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice"><span class="nav-number">1.2.8.</span> <span class="nav-text">splice</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-splice"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">list_splice</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-splice-tail"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">list_splice_tail</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-splice-init"><span class="nav-number">1.2.8.3.</span> <span class="nav-text">list_splice_init</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-splice-tail-init"><span class="nav-number">1.2.8.4.</span> <span class="nav-text">list_splice_tail_init</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-the-entry"><span class="nav-number">1.2.9.</span> <span class="nav-text">get the entry</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-entry"><span class="nav-number">1.2.9.1.</span> <span class="nav-text">list_entry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-first-entry"><span class="nav-number">1.2.9.2.</span> <span class="nav-text">list_first_entry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-first-entry-or-null"><span class="nav-number">1.2.9.3.</span> <span class="nav-text">list_first_entry_or_null</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-next-entry"><span class="nav-number">1.2.9.4.</span> <span class="nav-text">list_next_entry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-prev-entry"><span class="nav-number">1.2.9.5.</span> <span class="nav-text">list_prev_entry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-safe-reset-next"><span class="nav-number">1.2.9.6.</span> <span class="nav-text">list_safe_reset_next</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iterate-the-list"><span class="nav-number">1.2.10.</span> <span class="nav-text">iterate the list</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each"><span class="nav-number">1.2.10.1.</span> <span class="nav-text">list_for_each</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-prev"><span class="nav-number">1.2.10.2.</span> <span class="nav-text">list_for_each_prev</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-safe"><span class="nav-number">1.2.10.3.</span> <span class="nav-text">list_for_each_safe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-prev-safe"><span class="nav-number">1.2.10.4.</span> <span class="nav-text">list_for_each_prev_safe</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iterate-the-entry"><span class="nav-number">1.2.11.</span> <span class="nav-text">iterate the entry</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry"><span class="nav-number">1.2.11.1.</span> <span class="nav-text">list_for_each_entry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-reverse"><span class="nav-number">1.2.11.2.</span> <span class="nav-text">list_for_each_entry_reverse</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-prepare-entry"><span class="nav-number">1.2.11.3.</span> <span class="nav-text">list_prepare_entry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-continue"><span class="nav-number">1.2.11.4.</span> <span class="nav-text">list_for_each_entry_continue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-continue-reverse"><span class="nav-number">1.2.11.5.</span> <span class="nav-text">list_for_each_entry_continue_reverse</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-from"><span class="nav-number">1.2.11.6.</span> <span class="nav-text">list_for_each_entry_from</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-safe"><span class="nav-number">1.2.11.7.</span> <span class="nav-text">list_for_each_entry_safe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-safe-continue"><span class="nav-number">1.2.11.8.</span> <span class="nav-text">list_for_each_entry_safe_continue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-safe-from"><span class="nav-number">1.2.11.9.</span> <span class="nav-text">list_for_each_entry_safe_from</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-for-each-entry-safe-reverse"><span class="nav-number">1.2.11.10.</span> <span class="nav-text">list_for_each_entry_safe_reverse</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffle</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'lostjeffle';
+      var disqus_identifier = '2017/05/28/list/';
+      var disqus_title = 'list';
+      var disqus_url = 'http://lostjeffle.github.io/2017/05/28/list/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("VcvmLeFYlyXjJp57sle8H0hF-gzGzoHsz", "JWbLCqM02zgqatYtylOLDqO9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
